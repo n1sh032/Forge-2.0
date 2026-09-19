@@ -45,3 +45,16 @@ def test_manager_coding_and_testing():
     manager.tests_passed()
 
     assert manager.get_state() == ForgeState.COMMITTING
+
+
+def test_manager_creates_plan():
+
+    manager = Manager()
+
+    manager.start_task("Build a calculator")
+
+    plan = manager.create_plan()
+
+    assert plan["task"] == "Build a calculator"
+    assert len(plan["steps"]) > 0
+    assert manager.get_state() == ForgeState.WAITING_FOR_PLAN_APPROVAL

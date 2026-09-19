@@ -1,24 +1,43 @@
 from .state_machine import ForgeState, StateMachine
+from src.agents.architect import Architect
 
 
 class Manager:
 
     def __init__(self):
         self.state_machine = StateMachine()
+        self.architect = Architect()
+
         self.current_task = None
+        self.current_plan = None
 
     def start_task(self, task):
+
         if self.state_machine.get_state() != ForgeState.IDLE:
             raise ValueError("Manager is already working on a task")
 
         self.current_task = task
         self.state_machine.transition("start")
 
+    def create_plan(self):
+
+        if self.state_machine.get_state() != ForgeState.PLANNING:
+            raise ValueError("Manager is not currently planning")
+
+        self.current_plan = self.architect.run(self.current_task)
+
+        self.state_machine.transition("plan_ready")
+
+        return self.current_plan
+
     def get_state(self):
         return self.state_machine.get_state()
 
     def get_task(self):
         return self.current_task
+
+    def get_plan(self):
+        return self.current_plan
 
     def plan_ready(self):
         self.state_machine.transition("plan_ready")
