@@ -1,7 +1,9 @@
+import subprocess
+
 from src.manager.manager import Manager
+from src.manager.state_machine import ForgeState
 from src.agents.architect import Architect
 from src.agents.coder import Coder
-import subprocess
 
 
 class FakeArchitectProvider:
@@ -30,8 +32,23 @@ class SucceedingCoderProvider:
 
 
 class FailingCoderProvider:
+    def __init__(self):
+        self.calls = 0
+
     def ask(self, prompt):
-        return "this is not a valid diff"
+        self.calls += 1
+        if self.calls % 2 == 1:
+            return '["app.py"]'
+        else:
+            return "this is not a valid diff"
+
+
+def init_git_repo(project_root):
+    subprocess.run(["git", "init"], cwd=project_root, capture_output=True)
+    subprocess.run(["git", "config", "user.email", "test@test.com"], cwd=project_root, capture_output=True)
+    subprocess.run(["git", "config", "user.name", "Test"], cwd=project_root, capture_output=True)
+    subprocess.run(["git", "add", "."], cwd=project_root, capture_output=True)
+    subprocess.run(["git", "commit", "-m", "initial"], cwd=project_root, capture_output=True)
 
 
 def setup_manager(tmp_path, coder_provider):
@@ -39,13 +56,7 @@ def setup_manager(tmp_path, coder_provider):
     app_file = project_root / "app.py"
     app_file.write_text("old line\n")
 
-
-    subprocess.run(["git", "init"], cwd=project_root, capture_output=True)
-    subprocess.run(["git", "config", "user.email", "test@test.com"], cwd=project_root, capture_output=True)
-    subprocess.run(["git", "config", "user.name", "Test"], cwd=project_root, capture_output=True)
-    subprocess.run(["git", "add", "."], cwd=project_root, capture_output=True)
-    subprocess.run(["git", "commit", "-m", "initial"], cwd=project_root, capture_output=True)
-
+    init_git_repo(project_root)
 
     manager = Manager(
         architect=Architect(provider=FakeArchitectProvider()),
@@ -69,8 +80,6 @@ def test_run_step_success(tmp_path):
 
     assert result.success is True
     assert app_file.read_text() == "new line\n"
-
-    from src.manager.state_machine import ForgeState
     assert manager.get_state() == ForgeState.TESTING
 
 
@@ -82,8 +91,6 @@ def test_run_step_failure_goes_to_repairing(tmp_path):
 
     assert result.success is False
     assert app_file.read_text() == "old line\n"
-
-    from src.manager.state_machine import ForgeState
     assert manager.get_state() == ForgeState.REPAIRING
 
 
@@ -93,12 +100,7 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
     app_file = project_root / "app.py"
     app_file.write_text("old line\n")
 
-    import subprocess
-    subprocess.run(["git", "init"], cwd=project_root, capture_output=True)
-    subprocess.run(["git", "config", "user.email", "test@test.com"], cwd=project_root, capture_output=True)
-    subprocess.run(["git", "config", "user.name", "Test"], cwd=project_root, capture_output=True)
-    subprocess.run(["git", "add", "."], cwd=project_root, capture_output=True)
-    subprocess.run(["git", "commit", "-m", "initial"], cwd=project_root, capture_output=True)
+    init_git_repo(project_root)
 
     manager = Manager(
         architect=Architect(provider=FakeArchitectProvider()),
@@ -116,7 +118,4 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
     manager.retry_coding()
     manager.run_step()
 
-    from src.manager.state_machine import ForgeState
     assert manager.get_state() == ForgeState.FAILED
-
-    
