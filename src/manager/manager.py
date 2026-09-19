@@ -3,6 +3,7 @@ from src.agents.architect import Architect
 from src.agents.coder import Coder
 from src.tools.diff_applier import apply_diff
 from src.tools.tester import run_tests
+from src.tools.git_committer import commit_changes
 
 
 
@@ -92,6 +93,21 @@ class Manager:
             self.state_machine.transition("fail")
         else:
             self.state_machine.transition("tests_failed")
+
+        return result
+
+    def commit(self):
+
+        if self.state_machine.get_state() != ForgeState.COMMITTING:
+            raise ValueError("Manager is not currently in the COMMITTING state")
+
+        message = self.architect.generate_commit_message(self.get_current_step())
+        result = commit_changes(self.project_root, message)
+
+        if result.success:
+            self.state_machine.transition("commit_done")
+        else:
+            self.state_machine.transition("fail")
 
         return result
 

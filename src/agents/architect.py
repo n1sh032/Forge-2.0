@@ -26,6 +26,20 @@ class Architect(BaseAgent):
             "task": task,
             "steps": steps
         }
+
+    def generate_commit_message(self, step):
+        prompt = (
+            "You are a software engineer writing a git commit message "
+            "for a change you just made. "
+            "Follow the conventional commits style (e.g. 'feat: ...', "
+            "'fix: ...', 'test: ...', 'docs: ...'). "
+            "Keep it to a single line, no more than 72 characters. "
+            "Respond with ONLY the commit message, no quotes, no other text.\n\n"
+            f"The change implemented this step: {step}"
+        )
+
+        reply = self.provider.ask(prompt)
+        return self._strip_code_fence(reply).strip().strip('"').strip("'")
     
     def _strip_code_fence(self, text):
         text = text.strip()
