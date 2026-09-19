@@ -2,6 +2,8 @@ from .state_machine import ForgeState, StateMachine
 from src.agents.architect import Architect
 from src.agents.coder import Coder
 from src.tools.diff_applier import apply_diff
+from src.tools.tester import run_tests
+
 
 
 class Manager:
@@ -69,6 +71,27 @@ class Manager:
             self.state_machine.transition("fail")
         else:
             self.state_machine.transition("apply_failed")
+
+        return result
+
+    def run_tests(self):
+
+        if self.state_machine.get_state() != ForgeState.TESTING:
+            raise ValueError("Manager is not currently in the TESTING state")
+
+        result = run_tests(project_root=self.project_root)
+
+        if result.passed:
+            self.repair_attempts = 0
+            self.state_machine.transition("tests_passed")
+            return result
+
+        self.repair_attempts += 1
+
+        if self.repair_attempts >= self.max_repair_attempts:
+            self.state_machine.transition("fail")
+        else:
+            self.state_machine.transition("tests_failed")
 
         return result
 
