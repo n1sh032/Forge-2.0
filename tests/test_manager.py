@@ -1,5 +1,11 @@
 from src.manager.manager import Manager
 from src.manager.state_machine import ForgeState
+from src.agents.architect import Architect
+
+
+class FakeProvider:
+    def ask(self, prompt):
+        return '["Understand the requirements", "Design the solution", "Implement the solution", "Test the solution"]'
 
 
 def test_manager_starts_task():
@@ -14,10 +20,10 @@ def test_manager_starts_task():
 
 def test_manager_approval_flow():
 
-    manager = Manager()
+    manager = Manager(architect=Architect(provider=FakeProvider()))
 
     manager.start_task("Build a calculator")
-    manager.plan_ready()
+    manager.create_plan()
 
     assert manager.get_state() == ForgeState.WAITING_FOR_PLAN_APPROVAL
 
@@ -32,10 +38,10 @@ def test_manager_approval_flow():
 
 def test_manager_coding_and_testing():
 
-    manager = Manager()
+    manager = Manager(architect=Architect(provider=FakeProvider()))
 
     manager.start_task("Build a calculator")
-    manager.plan_ready()
+    manager.create_plan()
     manager.approve_plan()
     manager.approve_step()
     manager.coding_done()
@@ -49,7 +55,7 @@ def test_manager_coding_and_testing():
 
 def test_manager_creates_plan():
 
-    manager = Manager()
+    manager = Manager(architect=Architect(provider=FakeProvider()))
 
     manager.start_task("Build a calculator")
 

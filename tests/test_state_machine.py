@@ -83,3 +83,35 @@ def test_invalid_transition():
     with pytest.raises(ValueError):
         machine.transition("approve_step")
 
+def test_apply_failed_goes_to_repairing():
+
+    machine = StateMachine()
+
+    machine.transition("start")
+    machine.transition("plan_ready")
+    machine.transition("approve_plan")
+    machine.transition("approve_step")
+
+    assert machine.get_state() == ForgeState.CODING
+
+    machine.transition("apply_failed")
+
+    assert machine.get_state() == ForgeState.REPAIRING
+
+
+def test_retry_coding_returns_to_coding():
+
+    machine = StateMachine()
+
+    machine.transition("start")
+    machine.transition("plan_ready")
+    machine.transition("approve_plan")
+    machine.transition("approve_step")
+    machine.transition("apply_failed")
+
+    assert machine.get_state() == ForgeState.REPAIRING
+
+    machine.transition("retry_coding")
+
+    assert machine.get_state() == ForgeState.CODING
+

@@ -24,3 +24,4 @@ def test_ask_returns_text():
 
     assert isinstance(reply, str)
     assert len(reply) > 0
+    

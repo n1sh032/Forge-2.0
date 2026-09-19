@@ -12,7 +12,7 @@ class Architect(BaseAgent):
 
     def run(self, task):
         prompt = (
-            "You are a software engineering planner. "
+            "You are a  senior software engineering planner. "
             "Break the following task into a short list of clear, "
             "logical implementation steps. "
             "Respond with ONLY a JSON array of strings, no other text.\n\n"

@@ -1,15 +1,22 @@
 from .state_machine import ForgeState, StateMachine
 from src.agents.architect import Architect
+from src.agents.coder import Coder
+from src.tools.diff_applier import apply_diff
 
 
 class Manager:
 
-    def __init__(self):
+    def __init__(self, architect=None, coder=None, project_root=".", max_repair_attempts=3):
         self.state_machine = StateMachine()
-        self.architect = Architect()
+        self.project_root = project_root
+        self.architect = architect or Architect()
+        self.coder = coder or Coder(project_root=project_root)
 
         self.current_task = None
         self.current_plan = None
+        self.current_step_index = 0
+        self.repair_attempts = 0
+        self.max_repair_attempts = max_repair_attempts
 
     def start_task(self, task):
 
@@ -30,6 +37,44 @@ class Manager:
 
         return self.current_plan
 
+    def get_current_step(self):
+
+        if self.current_plan is None:
+            raise ValueError("No plan exists yet")
+
+        steps = self.current_plan["steps"]
+
+        if self.current_step_index >= len(steps):
+            raise ValueError("No more steps remaining in the plan")
+
+        return steps[self.current_step_index]
+
+    def run_step(self):
+
+        if self.state_machine.get_state() != ForgeState.CODING:
+            raise ValueError("Manager is not currently in the CODING state")
+
+        step = self.get_current_step()
+        diff = self.coder.run(step)
+        result = apply_diff(diff, project_root=self.project_root)
+
+        if result.success:
+            self.repair_attempts = 0
+            self.state_machine.transition("coding_done")
+            return result
+
+        self.repair_attempts += 1
+
+        if self.repair_attempts >= self.max_repair_attempts:
+            self.state_machine.transition("fail")
+        else:
+            self.state_machine.transition("apply_failed")
+
+        return result
+
+    def retry_coding(self):
+        self.state_machine.transition("retry_coding")
+
     def get_state(self):
         return self.state_machine.get_state()
 
@@ -38,9 +83,6 @@ class Manager:
 
     def get_plan(self):
         return self.current_plan
-
-    def plan_ready(self):
-        self.state_machine.transition("plan_ready")
 
     def approve_plan(self):
         self.state_machine.transition("approve_plan")
@@ -65,6 +107,7 @@ class Manager:
 
     def next_step(self):
         self.state_machine.transition("more_steps")
+        self.current_step_index += 1
 
     def finish(self):
         self.state_machine.transition("finished")

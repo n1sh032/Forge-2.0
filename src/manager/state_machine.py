@@ -30,10 +30,12 @@ class StateMachine:
                 "plan_ready": ForgeState.WAITING_FOR_PLAN_APPROVAL,
                 "fail": ForgeState.FAILED
             },
+
             ForgeState.WAITING_FOR_PLAN_APPROVAL: {
                 "approve_plan": ForgeState.WAITING_FOR_STEP_APPROVAL,
                 "reject_plan": ForgeState.PLANNING
             },
+
             ForgeState.WAITING_FOR_STEP_APPROVAL: {
                 "approve_step": ForgeState.CODING,
                 "reject_step": ForgeState.WAITING_FOR_STEP_APPROVAL
@@ -41,21 +43,27 @@ class StateMachine:
 
             ForgeState.CODING: {
                 "coding_done": ForgeState.TESTING,
+                "apply_failed": ForgeState.REPAIRING,
                 "fail": ForgeState.FAILED
             },
+
             ForgeState.TESTING: {
                 "tests_passed": ForgeState.COMMITTING,
                 "tests_failed": ForgeState.REPAIRING,
                 "fail": ForgeState.FAILED
             },
+
             ForgeState.REPAIRING: {
                 "repair_done": ForgeState.TESTING,
+                "retry_coding": ForgeState.CODING,
                 "fail": ForgeState.FAILED
             },
+
             ForgeState.COMMITTING: {
                 "commit_done": ForgeState.FINAL_REVIEW,
                 "fail": ForgeState.FAILED
             },
+
             ForgeState.FINAL_REVIEW: {
                 "more_steps": ForgeState.WAITING_FOR_STEP_APPROVAL,
                 "finished": ForgeState.DONE,
