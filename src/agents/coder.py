@@ -3,6 +3,7 @@ import json
 
 from .base_agent import BaseAgent
 from src.providers.omniroute_provider import OmniRouteProvider
+from src.tools.project_paths import project_path
 
 
 class Coder(BaseAgent):
@@ -51,7 +52,7 @@ class Coder(BaseAgent):
         contents = {}
 
         for path in file_paths:
-            full_path = os.path.join(self.project_root, path)
+            full_path = project_path(self.project_root, path)
             if os.path.exists(full_path):
                 with open(full_path, "r", encoding="utf-8") as f:
                     contents[path] = f.read()

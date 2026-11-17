@@ -96,13 +96,13 @@ class Manager:
 
         return result
 
-    def commit(self):
+    def commit(self, approved_paths=()):
 
         if self.state_machine.get_state() != ForgeState.COMMITTING:
             raise ValueError("Manager is not currently in the COMMITTING state")
 
         message = self.architect.generate_commit_message(self.get_current_step())
-        result = commit_changes(self.project_root, message)
+        result = commit_changes(self.project_root, message, approved_paths)
 
         if result.success:
             self.state_machine.transition("commit_done")
