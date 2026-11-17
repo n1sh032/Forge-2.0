@@ -3,6 +3,7 @@ import json
 
 from .base_agent import BaseAgent
 from src.providers.omniroute_provider import OmniRouteProvider
+from src.tools.project_paths import project_path
 
 
 class Coder(BaseAgent):
@@ -12,11 +13,11 @@ class Coder(BaseAgent):
         self.provider = provider or OmniRouteProvider()
         self.project_root = project_root
 
-    def run(self, step):
+    def run(self, step, feedback=None):
         file_list = self._list_project_files()
         relevant_files = self._pick_relevant_files(step, file_list)
         file_contents = self._read_files(relevant_files)
-        diff = self._generate_diff(step, file_contents)
+        diff = self._generate_diff(step, file_contents, feedback)
         return diff
 
     def _list_project_files(self):
@@ -51,7 +52,7 @@ class Coder(BaseAgent):
         contents = {}
 
         for path in file_paths:
-            full_path = os.path.join(self.project_root, path)
+            full_path = project_path(self.project_root, path)
             if os.path.exists(full_path):
                 with open(full_path, "r", encoding="utf-8") as f:
                     contents[path] = f.read()
@@ -60,7 +61,7 @@ class Coder(BaseAgent):
 
         return contents
 
-    def _generate_diff(self, step, file_contents):
+    def _generate_diff(self, step, file_contents, feedback=None):
         files_section = ""
         for path, content in file_contents.items():
             if content is None:
@@ -71,6 +72,10 @@ class Coder(BaseAgent):
         prompt = (
             "You are a software engineer implementing ONE small coding step.\n"
             f"Step: {step}\n\n"
+        )
+        if feedback:
+            prompt += f"Previous attempt failed. Use this diagnostic to repair the step:\n{feedback}\n\n"
+        prompt += (
             "Here are the current contents of the relevant files:\n"
             f"{files_section}\n\n"
             "Produce a unified diff (git diff format) that implements this step. "

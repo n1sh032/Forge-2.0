@@ -1,6 +1,14 @@
 import subprocess
 
 from src.tools.diff_applier import apply_diff
+from src.tools.project_paths import project_path
+import pytest
+
+
+@pytest.mark.parametrize("name", ["../outside.py", ".git/config", ".env", "C:/outside.py"])
+def test_generated_paths_stay_in_project(tmp_path, name):
+    with pytest.raises(ValueError):
+        project_path(tmp_path, name)
 
 
 def init_git_repo(path):
