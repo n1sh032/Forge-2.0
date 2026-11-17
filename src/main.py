@@ -52,7 +52,7 @@ def run_project(project, task):
                 result = manager.run_tests()
                 print(result.output)
             if manager.get_state() == ForgeState.REPAIRING:
-                if not approve("Request another patch?"):
+                if not approve("Send the failure output to OmniRoute and request another patch?"):
                     return 1
                 manager.retry_coding()
 

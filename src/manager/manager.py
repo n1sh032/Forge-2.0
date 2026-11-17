@@ -19,6 +19,7 @@ class Manager:
         self.current_plan = None
         self.current_step_index = 0
         self.repair_attempts = 0
+        self.repair_feedback = None
         self.max_repair_attempts = max_repair_attempts
 
     def start_task(self, task):
@@ -58,7 +59,10 @@ class Manager:
             raise ValueError("Manager is not currently in the CODING state")
 
         step = self.get_current_step()
-        diff = self.coder.run(step)
+        if self.repair_feedback:
+            diff = self.coder.run(step, feedback=self.repair_feedback)
+        else:
+            diff = self.coder.run(step)
         if review_patch is not None and not review_patch(diff):
             self.state_machine.transition("fail")
             return None
@@ -68,6 +72,7 @@ class Manager:
             self.state_machine.transition("coding_done")
             return result
 
+        self.repair_feedback = result.message
         self.repair_attempts += 1
 
         if self.repair_attempts >= self.max_repair_attempts:
@@ -86,9 +91,11 @@ class Manager:
 
         if result.passed:
             self.repair_attempts = 0
+            self.repair_feedback = None
             self.state_machine.transition("tests_passed")
             return result
 
+        self.repair_feedback = result.output
         self.repair_attempts += 1
 
         if self.repair_attempts >= self.max_repair_attempts:

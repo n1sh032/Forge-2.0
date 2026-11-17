@@ -29,6 +29,7 @@ running tests. After tests pass, review the result and pass the individual file
 paths to `Manager.commit(approved_paths=[...])`. Forge refuses to commit when
 the index already contains staged changes.
 
-The repair state supports a caller requesting another coding attempt. This
-branch has no automatic repair driver or feedback prompt. A failed test can
-leave changes in the target worktree for review.
+The repair state supports a caller requesting another coding attempt with the
+previous failure output. A failed test can leave changes in the target
+worktree for review. Read failure output before approving a retry because it
+will be sent to the configured model provider.
