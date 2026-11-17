@@ -52,13 +52,16 @@ class Manager:
 
         return steps[self.current_step_index]
 
-    def run_step(self):
+    def run_step(self, review_patch=None):
 
         if self.state_machine.get_state() != ForgeState.CODING:
             raise ValueError("Manager is not currently in the CODING state")
 
         step = self.get_current_step()
         diff = self.coder.run(step)
+        if review_patch is not None and not review_patch(diff):
+            self.state_machine.transition("fail")
+            return None
         result = apply_diff(diff, project_root=self.project_root)
 
         if result.success:

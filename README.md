@@ -15,6 +15,14 @@ The default endpoint is `http://localhost:20128/v1`.
 Draft a plan with `python -m src.main "Add a unit test for input validation"`.
 The command prints the plan for review.
 
+To apply a plan, create a separate linked worktree in the target project
+with `git worktree add -b forge-task ../forge-task HEAD`. From the Forge
+checkout, run `python -m src.main "Add a unit test" --project ../forge-task`.
+The runner asks before applying each patch and running tests, and again before
+committing the reviewed files. If you stop after applying a patch, changes stay
+in the target worktree for inspection. Review new files in that worktree before
+approving the commit.
+
 Use a clean disposable branch or worktree for the target project. Tests execute
 the target's code with your local permissions. Review the generated diff before
 running tests. After tests pass, review the result and pass the individual file
