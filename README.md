@@ -1,35 +1,53 @@
 # Forge 2.0
 
-Forge is a prototype for planning a coding task with OmniRoute, generating a
-patch, applying it to a Git worktree and checking it with pytest. The manager
-exposes individual steps for a caller to run.
+Forge is an interactive coding workflow prototype. OmniRoute drafts a plan and suggests patches. Forge shows each patch before applying it, runs pytest, and asks you to review the changed files before creating a local commit.
+
+This guide describes the [`nish/forge-safety` branch](https://github.com/n1sh032/Forge-2.0/tree/nish/forge-safety).
+
+## Requirements and setup
+
+- Python 3.10 or later and Git on your PATH.
+- For live model calls, a configured OmniRoute server at `http://localhost:20128/v1`, access to the model configured in [omniroute_provider.py](src/providers/omniroute_provider.py), and a valid API key.
+- For patch and test runs, a Python target project with pytest and its other test dependencies available to Forge's interpreter.
+
+From the Forge repository root in PowerShell:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\python.exe -m pip install -r requirements.txt
-.\.venv\Scripts\python.exe -m pytest -q
 ```
 
-For model calls, set `OMNIROUTE_API_KEY` and run a configured OmniRoute server.
-The default endpoint is `http://localhost:20128/v1`.
-Draft a plan with `python -m src.main "Add a unit test for input validation"`.
-The command prints the plan for review.
+Set `OMNIROUTE_API_KEY` in your environment or a private `.env` file in the Forge checkout. Start OmniRoute before requesting a live plan.
 
-To apply a plan, create a separate linked worktree in the target project
-with `git worktree add -b forge-task ../forge-task HEAD`. From the Forge
-checkout, run `python -m src.main "Add a unit test" --project ../forge-task`.
-The runner asks before applying each patch and running tests, and again before
-committing the reviewed files. If you stop after applying a patch, changes stay
-in the target worktree for inspection. Review new files in that worktree before
-approving the commit.
+## Draft a plan
 
-Use a clean disposable branch or worktree for the target project. Tests execute
-the target's code with your local permissions. Review the generated diff before
-running tests. After tests pass, review the result and pass the individual file
-paths to `Manager.commit(approved_paths=[...])`. Forge refuses to commit when
-the index already contains staged changes.
+```powershell
+.\.venv\Scripts\python.exe -m src.main "Add a unit test for input validation"
+```
 
-The repair state supports a caller requesting another coding attempt with the
-previous failure output. A failed test can leave changes in the target
-worktree for review. Read failure output before approving a retry because it
-will be sent to the configured model provider.
+The command prints the proposed steps as JSON. Add `--help` to see the available options.
+
+## Apply a plan in a linked worktree
+
+From the **target repository**, create a clean linked worktree on a new branch:
+
+```powershell
+git worktree add -b forge-task ../forge-task HEAD
+```
+
+Return to the **Forge checkout** and pass the actual path to the linked worktree:
+
+```powershell
+.\.venv\Scripts\python.exe -m src.main "Add a unit test for input validation" --project ../forge-task
+```
+
+Approve the plan and review each patch before running it. If a patch or test fails, Forge can ask OmniRoute for another patch with the failure details you approve. pytest has a 120-second timeout. After tests pass, inspect the diff and new files before approving the commit. Forge requires an empty staging area and stages only the approved paths. If you stop after applying a patch, its changes stay in the target worktree. Tests run with your local account's permissions.
+
+## Working proof
+
+The suite exercises plan parsing, patch application, test execution, retry accounting and selective staging with temporary repositories and fake providers. A previous run on this branch passed **33 tests with 1 skip**, and the CLI help opened successfully. A complete live OmniRoute run has not been verified.
+
+```powershell
+.\.venv\Scripts\python.exe -m src.main --help
+.\.venv\Scripts\python.exe -m pytest -q
+```
