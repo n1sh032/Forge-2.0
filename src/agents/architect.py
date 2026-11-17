@@ -21,6 +21,10 @@ class Architect(BaseAgent):
 
         reply = self.provider.ask(prompt)
         steps = json.loads(self._strip_code_fence(reply))
+        if not isinstance(steps, list) or not steps or any(
+            not isinstance(step, str) or not step.strip() for step in steps
+        ):
+            raise ValueError("Planner must return a nonempty list of steps")
 
         return {
             "task": task,

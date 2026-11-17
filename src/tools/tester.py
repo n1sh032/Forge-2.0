@@ -9,7 +9,7 @@ class TestResult:
         self.output = output
 
 
-def run_tests(project_root="."):
+def run_tests(project_root=".", timeout=120):
     """
     Runs the test suite in project_root using pytest.
 
@@ -18,12 +18,16 @@ def run_tests(project_root="."):
     inspected or shown to the user.
     """
 
-    result = subprocess.run(
-        [sys.executable, "-m", "pytest"],
-        cwd=project_root,
-        capture_output=True,
-        text=True
-    )
+    try:
+        result = subprocess.run(
+            [sys.executable, "-m", "pytest"],
+            cwd=project_root,
+            capture_output=True,
+            text=True,
+            timeout=timeout,
+        )
+    except subprocess.TimeoutExpired:
+        return TestResult(False, f"pytest timed out after {timeout} seconds")
 
     passed = result.returncode == 0
     output = result.stdout + result.stderr
