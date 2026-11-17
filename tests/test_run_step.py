@@ -119,3 +119,26 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
     manager.run_step()
 
     assert manager.get_state() == ForgeState.FAILED
+
+
+def test_coder_includes_repair_feedback_in_prompt(tmp_path):
+    class RecordingProvider:
+        def __init__(self):
+            self.prompt = None
+
+        def ask(self, prompt):
+            self.prompt = prompt
+            return "diff output"
+
+    provider = RecordingProvider()
+    coder = Coder(provider=provider, project_root=str(tmp_path))
+
+    result = coder._generate_diff(
+        "Fix the failing test",
+        {"app.py": "assert True\n"},
+        feedback="AssertionError: expected 2 but got 1",
+    )
+
+    assert result == "diff output"
+    assert "AssertionError: expected 2 but got 1" in provider.prompt
+    assert "Previous attempt failed" in provider.prompt
