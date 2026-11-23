@@ -1,0 +1,165 @@
+import argparse
+import os
+import subprocess
+from pathlib import Path
+
+from src.web_runtime import serve
+
+
+def git(root, *args):
+    return subprocess.check_output(
+        ["git", *args],
+        cwd=root,
+        text=True,
+        encoding="utf-8",
+        timeout=15,
+    ).strip()
+
+
+class ForgeApplication:
+    actions = {"plan", "patch", "apply", "commit", "next"}
+
+    def __init__(self):
+        self.manager = None
+        self.patch = None
+        self.root = None
+
+    def describe(self):
+        return {"name": "Forge", "project": str(self.root) if self.root else None}
+
+    def result(self, **extra):
+        manager = self.manager
+        return {
+            "state": manager.get_state().value,
+            "plan": manager.current_plan,
+            "step": manager.current_step_index,
+            **extra,
+        }
+
+    def execute(self, action, payload):
+        from src.manager.manager import Manager
+        from src.manager.state_machine import ForgeState
+        from src.tools.diff_applier import apply_diff
+
+        if action == "plan":
+            if self.manager and self.manager.get_state() not in {
+                ForgeState.DONE,
+                ForgeState.FAILED,
+            }:
+                return {
+                    "error": "Finish the current plan or restart Forge to choose a different project."
+                }
+            task = payload.get("task", "")
+            raw_root = payload.get("project", "")
+            if (
+                not isinstance(task, str)
+                or not task.strip()
+                or len(task) > 4000
+                or not isinstance(raw_root, str)
+                or not raw_root
+            ):
+                return {
+                    "error": "Enter a task and the absolute path to a clean linked worktree."
+                }
+            root = Path(raw_root)
+            if not root.is_absolute():
+                return {"error": "The project path must be absolute."}
+            root = root.resolve()
+            if root != Path(git(root, "rev-parse", "--show-toplevel")).resolve():
+                return {"error": "Choose the root of a linked Git worktree."}
+            if git(root, "status", "--porcelain") or git(
+                root, "rev-parse", "--git-dir"
+            ) == git(root, "rev-parse", "--git-common-dir"):
+                return {"error": "Create a clean linked Git worktree first."}
+            if not git(root, "branch", "--show-current"):
+                return {"error": "The worktree needs a dedicated branch."}
+            manager = Manager(project_root=str(root))
+            manager.start_task(task.strip())
+            manager.create_plan()
+            self.root = root
+            self.manager = manager
+            return self.result()
+
+        if self.manager is None:
+            return {"error": "Create a plan first."}
+        manager = self.manager
+        state = manager.get_state()
+        if action == "patch":
+            if state == ForgeState.WAITING_FOR_PLAN_APPROVAL:
+                manager.approve_plan()
+                manager.approve_step()
+            elif state == ForgeState.WAITING_FOR_STEP_APPROVAL:
+                manager.approve_step()
+            elif state == ForgeState.REPAIRING:
+                manager.retry_coding()
+            elif state != ForgeState.CODING:
+                return {"error": "A patch cannot be generated in the current state."}
+            self.patch = manager.coder.run(
+                manager.get_current_step(),
+                feedback=manager.repair_feedback,
+            )
+            return self.result(patch=self.patch)
+        if action == "apply":
+            if state != ForgeState.CODING or not self.patch:
+                return {"error": "Generate and review a patch first."}
+            patch, self.patch = self.patch, None
+            applied = apply_diff(patch, project_root=self.root)
+            if not applied.success:
+                manager.repair_feedback = applied.message
+                manager.repair_attempts += 1
+                manager.state_machine.transition(
+                    "fail"
+                    if manager.repair_attempts >= manager.max_repair_attempts
+                    else "apply_failed",
+                )
+                return self.result(output=applied.message)
+            manager.coding_done()
+            checked = manager.run_tests()
+            return self.result(
+                output=checked.output,
+                diff=git(self.root, "diff", "--no-ext-diff"),
+                files=self.changed_files(),
+            )
+        if action == "commit":
+            if state != ForgeState.COMMITTING:
+                return {"error": "Tests must pass before committing."}
+            files = payload.get("files")
+            if (
+                not files
+                or not isinstance(files, list)
+                or set(files) != set(self.changed_files())
+            ):
+                return {
+                    "error": "Review and approve every changed file before committing."
+                }
+            committed = manager.commit(files)
+            return self.result(output=committed.message)
+        if action == "next":
+            if state != ForgeState.FINAL_REVIEW:
+                return {"error": "Complete the current step first."}
+            if manager.current_step_index + 1 < len(manager.current_plan["steps"]):
+                manager.next_step()
+            else:
+                manager.finish()
+            return self.result()
+        return {"error": "Unknown action"}
+
+    def changed_files(self):
+        files = git(self.root, "diff", "--no-renames", "--name-only", "-z").split("\0")
+        files += git(
+            self.root, "ls-files", "--others", "--exclude-standard", "-z"
+        ).split("\0")
+        return sorted(set(files) - {""})
+
+
+def main():
+    parser = argparse.ArgumentParser(description="Forge coding workspace")
+    parser.add_argument("--port", type=int, default=8011)
+    args = parser.parse_args()
+    root = Path(__file__).resolve().parents[1]
+    os.chdir(root)
+    serve(ForgeApplication(), root / "web", "forge", args.port)
+
+
+if __name__ == "__main__":
+    main()
