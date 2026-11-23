@@ -74,7 +74,7 @@ function render(r) {
   $("stage").textContent = (r.state || "Plan").replaceAll("_", " ");
   files = r.files || [];
   $("approve-files").checked = false;
-  $("output").textContent = [
+  const evidence = [
     r.plan ? JSON.stringify(r.plan, null, 2) : "",
     r.patch || "",
     r.output || "",
@@ -83,6 +83,18 @@ function render(r) {
   ]
     .filter(Boolean)
     .join("\n\n");
+  const fragment = document.createDocumentFragment();
+  for (const line of evidence.split("\n")) {
+    const row = document.createElement("span");
+    row.textContent = line + "\n";
+    if (line.startsWith("+") && !line.startsWith("+++"))
+      row.className = "diff-added";
+    if (line.startsWith("-") && !line.startsWith("---"))
+      row.className = "diff-removed";
+    if (line.startsWith("@@")) row.className = "diff-context";
+    fragment.append(row);
+  }
+  $("output").replaceChildren(fragment);
 }
 $("plan").addEventListener("submit", (e) => {
   e.preventDefault();

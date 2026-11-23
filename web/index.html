@@ -3,77 +3,101 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Forge</title>
+    <title>Forge · Review workspace</title>
     <link rel="stylesheet" href="/style.css" />
     <script src="/app.js" defer></script>
   </head>
   <body>
-    <main>
-      <header>
-        <div class="logo">Forge</div>
-        <p id="connection">Connecting…</p>
-      </header>
-      <h1>Review every step.</h1>
-      <p class="lead">
-        Turn a coding task into a plan, inspect its patches and run the
-        project’s checks before committing.
-      </p>
-      <p id="status" role="status">Connecting…</p>
-      <div class="layout">
-        <section class="panel" aria-label="Workspace">
+    <header class="topbar">
+      <a href="#workspace" class="brand"
+        ><span class="brand-icon" aria-hidden="true">F</span>FORGE</a
+      >
+      <div class="top-separator"></div>
+      <span class="workspace-name">Development workspace</span
+      ><span class="local-tag">LOCAL</span>
+    </header>
+    <main id="workspace">
+      <div class="workspace-header">
+        <div>
+          <p class="eyebrow">PLAN. INSPECT. SHIP.</p>
+          <h1>The workbench.</h1>
+          <p class="subtitle">
+            A focused task. An inspectable patch. A commit you approve.
+          </p>
+        </div>
+        <div class="project-status">
+          <span>ACTIVE WORKTREE</span>
+          <p id="connection">No worktree selected</p>
+        </div>
+      </div>
+      <div class="workbench">
+        <aside class="task-pane">
+          <div class="pane-heading">
+            <h2>Task brief</h2>
+            <span>INPUT</span>
+          </div>
           <form id="plan">
-            <label for="project">Linked worktree path</label
+            <label for="project">Linked worktree</label
             ><input
               id="project"
               type="text"
-              placeholder="C:\projects\my-task-worktree"
+              placeholder="C:\projects\feature-worktree"
               required
             />
             <p class="hint">
-              Create a clean worktree on a dedicated branch with git worktree
-              add.
+              Use the absolute path to a clean, dedicated Git worktree.
             </p>
-            <label for="task">Task</label
+            <label for="task">What are we building?</label
             ><textarea
               id="task"
               maxlength="4000"
               required
-              placeholder="Describe a focused change and how it should behave"
+              placeholder="Describe the change and how you will know it works."
             ></textarea>
-            <div class="actions">
-              <button data-action type="submit">Create plan</button>
-            </div>
+            <button data-action type="submit" class="primary">
+              Create plan
+            </button>
           </form>
-          <div class="actions">
-            <button data-action id="patch" class="secondary">
-              Approve step & generate patch</button
-            ><button data-action id="apply" class="secondary">
-              Apply patch & run tests
+          <div class="review-flow">
+            <h2>Review workflow</h2>
+            <button data-action id="patch">
+              <span class="action-name">Generate patch</span
+              ><small>Approve the step and inspect the diff</small></button
+            ><button data-action id="apply">
+              <span class="action-name">Apply & test</span
+              ><small>Execute the displayed patch and pytest</small>
             </button>
           </div>
-          <p class="hint">
-            Tests execute the project’s code on your computer. Inspect the patch
-            before applying it.
-          </p>
-          <label class="inline"
-            ><input id="approve-files" type="checkbox" /> I reviewed all changed
-            files, including new files</label
-          >
-          <div class="actions">
-            <button data-action id="commit" class="secondary">
-              Commit reviewed files</button
-            ><button data-action id="next" class="secondary">
-              Continue plan
-            </button>
+        </aside>
+        <section class="evidence-pane" aria-label="Plan and evidence">
+          <div class="evidence-header">
+            <span class="tab active">Review output</span
+            ><span id="stage" class="stage-label">Ready for a task</span>
           </div>
-        </section>
-        <section class="panel">
-          <h2 id="stage">Plan and evidence</h2>
-          <pre id="output" aria-live="polite">
-Start with a focused task in a clean linked worktree.</pre
-          >
+          <div class="editor">
+            <pre id="output" aria-live="polite">
+Your plan, patch and test output will appear here.
+
+Start by selecting a linked worktree and describing a task.</pre
+            >
+          </div>
+          <div class="commit-bar">
+            <label class="inline"
+              ><input id="approve-files" type="checkbox" /> I reviewed every
+              changed file, including new files.</label
+            >
+            <div class="commit-actions">
+              <button data-action id="commit" class="primary">
+                Commit changes</button
+              ><button data-action id="next">Continue plan</button>
+            </div>
+          </div>
         </section>
       </div>
+      <footer>
+        <p id="status" role="status">Connecting…</p>
+        <span>Generated code runs with your local permissions.</span>
+      </footer>
     </main>
   </body>
 </html>
