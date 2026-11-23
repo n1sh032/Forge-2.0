@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Forge</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <main>
+      <header>
+        <div class="logo">Forge</div>
+        <p id="connection">Connecting…</p>
+      </header>
+      <h1>Review every step.</h1>
+      <p class="lead">
+        Turn a coding task into a plan, inspect its patches and run the
+        project’s checks before committing.
+      </p>
+      <p id="status" role="status">Connecting…</p>
+      <div class="layout">
+        <section class="panel" aria-label="Workspace">
+          <form id="plan">
+            <label for="project">Linked worktree path</label
+            ><input
+              id="project"
+              type="text"
+              placeholder="C:\projects\my-task-worktree"
+              required
+            />
+            <p class="hint">
+              Create a clean worktree on a dedicated branch with git worktree
+              add.
+            </p>
+            <label for="task">Task</label
+            ><textarea
+              id="task"
+              maxlength="4000"
+              required
+              placeholder="Describe a focused change and how it should behave"
+            ></textarea>
+            <div class="actions">
+              <button data-action type="submit">Create plan</button>
+            </div>
+          </form>
+          <div class="actions">
+            <button data-action id="patch" class="secondary">
+              Approve step & generate patch</button
+            ><button data-action id="apply" class="secondary">
+              Apply patch & run tests
+            </button>
+          </div>
+          <p class="hint">
+            Tests execute the project’s code on your computer. Inspect the patch
+            before applying it.
+          </p>
+          <label class="inline"
+            ><input id="approve-files" type="checkbox" /> I reviewed all changed
+            files, including new files</label
+          >
+          <div class="actions">
+            <button data-action id="commit" class="secondary">
+              Commit reviewed files</button
+            ><button data-action id="next" class="secondary">
+              Continue plan
+            </button>
+          </div>
+        </section>
+        <section class="panel">
+          <h2 id="stage">Plan and evidence</h2>
+          <pre id="output" aria-live="polite">
+Start with a focused task in a clean linked worktree.</pre
+          >
+        </section>
+      </div>
+    </main>
+  </body>
+</html>
