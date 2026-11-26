@@ -109,3 +109,6 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
 
     manager.start_task("Fix the line")
     manager.create_plan()
+    manager.approve_plan()
+    manager.approve_step()
+
