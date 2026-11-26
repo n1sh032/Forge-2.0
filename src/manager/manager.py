@@ -105,7 +105,7 @@ class Manager:
 
         return result
 
-    def commit(self):
+    def commit(self, approved_paths=()):
 
         if self.state_machine.get_state() != ForgeState.COMMITTING:
             raise ValueError("Manager is not currently in the COMMITTING state")
