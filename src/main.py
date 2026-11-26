@@ -37,3 +37,9 @@ def run_project(project, task):
     print(json.dumps(plan, indent=2))
     if not approve("Approve this plan?"):
         return 1
+    manager.approve_plan()
+
+    for index, step in enumerate(plan["steps"], 1):
+        if not approve(f"Start step {index}: {step}"):
+            return 1
+        manager.approve_step()
