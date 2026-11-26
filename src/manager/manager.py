@@ -58,6 +58,9 @@ class Manager:
         diff = self.coder.run(step)
         result = apply_diff(diff, project_root=self.project_root)
 
+        if result.success:
+            self.repair_attempts = 0
+            self.state_machine.transition("coding_done")
     def get_state(self):
         return self.state_machine.get_state()
 
