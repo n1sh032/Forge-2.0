@@ -6,7 +6,7 @@ from src.tools.diff_applier import apply_diff
 
 class Manager:
 
-    def __init__(self):
+    def __init__(self, architect=None, coder=None, project_root=".", max_repair_attempts=3):
         self.state_machine = StateMachine()
         self.architect = Architect()
 
