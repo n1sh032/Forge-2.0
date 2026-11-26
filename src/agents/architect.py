@@ -24,10 +24,15 @@ class Architect(BaseAgent):
 
         return {
             "task": task,
-            "steps": [
-                "Understand the requirements",
-                "Design the solution",
-                "Implement the solution",
-                "Test the solution"
-            ]
+            "steps": steps
         }
+
+    def _strip_code_fence(self, text):
+        text = text.strip()
+        if text.startswith("```"):
+            lines = text.split("\n")
+            lines = lines[1:]
+            if lines and lines[-1].strip() == "```":
+                lines = lines[:-1]
+            text = "\n".join(lines)
+        return text.strip()
