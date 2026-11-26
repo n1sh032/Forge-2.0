@@ -34,3 +34,6 @@ class NewFileProvider:
             return '["login.py"]'
         else:
             assert "does not exist yet" in prompt
+            return "+++ b/login.py\n@@ -0,0 +1 @@\n+print('login')\n"
+
+
