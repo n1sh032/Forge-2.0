@@ -88,3 +88,9 @@ class ForgeApplication:
             if state == ForgeState.WAITING_FOR_PLAN_APPROVAL:
                 manager.approve_plan()
                 manager.approve_step()
+            elif state == ForgeState.WAITING_FOR_STEP_APPROVAL:
+                manager.approve_step()
+            elif state == ForgeState.REPAIRING:
+                manager.retry_coding()
+            elif state != ForgeState.CODING:
+                return {"error": "A patch cannot be generated in the current state."}
