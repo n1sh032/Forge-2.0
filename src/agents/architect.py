@@ -17,6 +17,8 @@ class Architect(BaseAgent):
         return self._provider
 
     @provider.setter
+    def provider(self, value):
+        self._provider = value
 
     def run(self, task):
         prompt = (
