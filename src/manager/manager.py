@@ -8,7 +8,9 @@ class Manager:
 
     def __init__(self, architect=None, coder=None, project_root=".", max_repair_attempts=3):
         self.state_machine = StateMachine()
-        self.architect = Architect()
+        self.project_root = project_root
+        self.architect = architect or Architect()
+        self.coder = coder or Coder(project_root=project_root)
 
         self.current_task = None
         self.current_plan = None
