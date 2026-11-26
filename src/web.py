@@ -76,3 +76,6 @@ class ForgeApplication:
             manager = Manager(project_root=str(root))
             manager.start_task(task.strip())
             manager.create_plan()
+            self.root = root
+            self.manager = manager
+            return self.result()
