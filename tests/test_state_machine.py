@@ -37,3 +37,6 @@ def test_step_approval():
     machine.transition("approve_plan")
     machine.transition("approve_step")
 
+    assert machine.get_state() == ForgeState.CODING
+
+
