@@ -19,3 +19,6 @@ def git(root, *args):
 class ForgeApplication:
     actions = {"plan", "patch", "apply", "commit", "next"}
 
+    def __init__(self):
+        self.manager = None
+        self.patch = None
