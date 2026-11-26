@@ -19,3 +19,6 @@ def test_manager_approval_flow():
     manager.start_task("Build a calculator")
     manager.plan_ready()
 
+    assert manager.get_state() == ForgeState.WAITING_FOR_PLAN_APPROVAL
+
+    manager.approve_plan()
