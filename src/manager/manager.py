@@ -25,3 +25,6 @@ class Manager:
 
     def approve_plan(self):
         self.state_machine.transition("approve_plan")
+
+    def approve_step(self):
+        self.state_machine.transition("approve_step")
