@@ -68,7 +68,9 @@ def test_commit_creates_git_commit(tmp_path):
 
     assert manager.get_state() == ForgeState.COMMITTING
 
-    result = manager.commit()
+    (project_root / "notes.txt").write_text("unrelated")
+    result = manager.commit(["test_sample.py"])
+    status = subprocess.check_output(["git", "status", "--short"], cwd=project_root, text=True)
 
     assert result.success is True
     assert manager.get_state() == ForgeState.FINAL_REVIEW
