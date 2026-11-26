@@ -28,3 +28,6 @@ def run_project(project, task):
     branch = git_output(project, "branch", "--show-current").strip()
     common = git_output(project, "rev-parse", "--git-common-dir").strip()
     local = git_output(project, "rev-parse", "--git-dir").strip()
+    if not branch or common == local:
+        raise ValueError("Use a linked Git worktree on a dedicated branch")
+
