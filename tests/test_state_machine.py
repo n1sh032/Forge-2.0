@@ -98,3 +98,9 @@ def test_apply_failed_goes_to_repairing():
 
     assert machine.get_state() == ForgeState.REPAIRING
 
+
+def test_retry_coding_returns_to_coding():
+
+    machine = StateMachine()
+
+    machine.transition("start")
