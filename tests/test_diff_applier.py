@@ -16,3 +16,15 @@ def test_apply_valid_diff_modifies_file(tmp_path):
     target_file.write_text("old line\n")
 
     subprocess.run(["git", "add", "."], cwd=tmp_path, capture_output=True)
+    subprocess.run(["git", "commit", "-m", "initial"], cwd=tmp_path, capture_output=True)
+
+    diff = (
+        "diff --git a/app.py b/app.py\n"
+        "index 0000000..1111111 100644\n"
+        "--- a/app.py\n"
+        "+++ b/app.py\n"
+        "@@ -1 +1 @@\n"
+        "-old line\n"
+        "+new line\n"
+    )
+
