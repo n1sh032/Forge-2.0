@@ -25,3 +25,6 @@ class Coder(BaseAgent):
 
         for root, dirs, filenames in os.walk(self.project_root):
             dirs[:] = [d for d in dirs if d not in ignored_dirs]
+
+            for filename in filenames:
+                path = os.path.relpath(os.path.join(root, filename), self.project_root)
