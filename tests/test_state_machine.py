@@ -7,3 +7,6 @@ def test_start_planning():
 
     machine = StateMachine()
 
+    assert machine.get_state() == ForgeState.IDLE
+
+    machine.transition("start")
