@@ -115,3 +115,12 @@ class ForgeApplication:
                 return self.result(output=applied.message)
             manager.coding_done()
             checked = manager.run_tests()
+            return self.result(
+                output=checked.output,
+                diff=git(self.root, "diff", "--no-ext-diff"),
+                files=self.changed_files(),
+            )
+        if action == "commit":
+            if state != ForgeState.COMMITTING:
+                return {"error": "Tests must pass before committing."}
+            files = payload.get("files")
