@@ -112,3 +112,6 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
     manager.approve_plan()
     manager.approve_step()
 
+    manager.run_step()
+    manager.retry_coding()
+    manager.run_step()
