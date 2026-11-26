@@ -1,4 +1,5 @@
 from .state_machine import ForgeState, StateMachine
+from src.agents.architect import Architect
 
 
 class Manager:
