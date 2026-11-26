@@ -91,3 +91,6 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
 
     project_root = tmp_path
     app_file = project_root / "app.py"
+    app_file.write_text("old line\n")
+
+    import subprocess
