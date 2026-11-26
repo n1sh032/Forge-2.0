@@ -52,3 +52,6 @@ def test_testing_success():
 
     assert machine.get_state() == ForgeState.TESTING
 
+    machine.transition("tests_passed")
+
+    assert machine.get_state() == ForgeState.COMMITTING
