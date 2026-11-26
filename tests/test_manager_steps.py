@@ -19,3 +19,6 @@ def test_get_current_step_returns_first_step():
     assert manager.get_current_step() == "Step one"
 
 
+def test_get_current_step_before_plan_raises():
+
+    manager = Manager()
