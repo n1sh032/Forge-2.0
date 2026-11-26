@@ -16,3 +16,6 @@ class OmniRouteProvider:
 
     def __init__(self, base_url="http://localhost:20128/v1", model="kiro/claude-haiku-4.5"):
         self.base_url = base_url
+        self.model = model
+        self.api_key = os.getenv("OMNIROUTE_API_KEY")
+
