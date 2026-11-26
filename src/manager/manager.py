@@ -64,6 +64,9 @@ class Manager:
             return result
 
         self.repair_attempts += 1
+
+        if self.repair_attempts >= self.max_repair_attempts:
+            self.state_machine.transition("fail")
     def get_state(self):
         return self.state_machine.get_state()
 
