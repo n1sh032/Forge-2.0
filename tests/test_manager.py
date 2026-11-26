@@ -1,5 +1,8 @@
 from src.manager.manager import Manager
 from src.manager.state_machine import ForgeState
+from src.agents.architect import Architect
+
+
 
 
 def test_manager_starts_task():
