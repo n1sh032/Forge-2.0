@@ -7,3 +7,6 @@ class Manager:
         self.state_machine = StateMachine()
         self.current_task = None
 
+    def start_task(self, task):
+        if self.state_machine.get_state() != ForgeState.IDLE:
+            raise ValueError("Manager is already working on a task")
