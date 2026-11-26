@@ -46,6 +46,7 @@ class StateMachine:
                 "apply_failed": ForgeState.REPAIRING,
                 "fail": ForgeState.FAILED
             },
+
             ForgeState.TESTING: {
                 "tests_passed": ForgeState.COMMITTING,
                 "tests_failed": ForgeState.REPAIRING,
