@@ -46,6 +46,9 @@ class Manager:
 
         if self.current_step_index >= len(steps):
             raise ValueError("No more steps remaining in the plan")
+
+        return steps[self.current_step_index]
+
     def get_state(self):
         return self.state_machine.get_state()
 
