@@ -82,3 +82,6 @@ class Coder(BaseAgent):
 
     def _strip_code_fence(self, text):
         text = text.strip()
+        if text.startswith("```"):
+            lines = text.split("\n")
+            lines = lines[1:]
