@@ -61,3 +61,6 @@ def test_repair_loop():
 
     machine = StateMachine()
 
+    machine.transition("start")
+    machine.transition("plan_ready")
+    machine.transition("approve_plan")
