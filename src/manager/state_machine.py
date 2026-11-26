@@ -63,6 +63,7 @@ class StateMachine:
                 "commit_done": ForgeState.FINAL_REVIEW,
                 "fail": ForgeState.FAILED
             },
+
             ForgeState.FINAL_REVIEW: {
                 "more_steps": ForgeState.WAITING_FOR_STEP_APPROVAL,
                 "finished": ForgeState.DONE,
