@@ -47,3 +47,6 @@ def test_manager_coding_and_testing():
     assert manager.get_state() == ForgeState.COMMITTING
 
 
+def test_manager_creates_plan():
+
+    manager = Manager()
