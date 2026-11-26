@@ -67,3 +67,15 @@ class Coder(BaseAgent):
                 files_section += f"\n--- {path} (does not exist yet) ---\n(new file)\n"
             else:
                 files_section += f"\n--- {path} (current content) ---\n{content}\n"
+
+        prompt = (
+            "You are a software engineer implementing ONE small coding step.\n"
+            f"Step: {step}\n\n"
+            "Here are the current contents of the relevant files:\n"
+            f"{files_section}\n\n"
+            "Produce a unified diff (git diff format) that implements this step. "
+            "For new files, write a diff that creates them from scratch. "
+            "Respond with ONLY the diff, no other text or explanation."
+        )
+
+        return self.provider.ask(prompt)
