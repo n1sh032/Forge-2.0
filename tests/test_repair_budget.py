@@ -19,3 +19,6 @@ def test_patches_that_apply_cannot_reset_failed_test_budget(monkeypatch):
     manager.create_plan()
     manager.approve_plan()
     manager.approve_step()
+
+    manager.run_step()
+    manager.coder.run.assert_called_once_with("write patch")
