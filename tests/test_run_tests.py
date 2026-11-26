@@ -64,3 +64,6 @@ def test_run_tests_passes_moves_to_committing(tmp_path):
         "+def test_ok():\n"
         "+    assert True\n"
     )
+
+    manager, test_file = get_to_testing(tmp_path, diff)
+
