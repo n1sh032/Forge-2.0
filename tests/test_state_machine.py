@@ -43,3 +43,6 @@ def test_step_approval():
 def test_testing_success():
 
     machine = StateMachine()
+
+    machine.transition("start")
+    machine.transition("plan_ready")
