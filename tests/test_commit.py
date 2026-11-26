@@ -64,3 +64,6 @@ def test_commit_creates_git_commit(tmp_path):
     manager.approve_plan()
     manager.approve_step()
     manager.run_step()
+    manager.run_tests()
+
+    assert manager.get_state() == ForgeState.COMMITTING
