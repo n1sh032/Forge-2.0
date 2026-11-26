@@ -61,3 +61,6 @@ class ForgeApplication:
                 return {
                     "error": "Enter a task and the absolute path to a clean linked worktree."
                 }
+            root = Path(raw_root)
+            if not root.is_absolute():
+                return {"error": "The project path must be absolute."}
