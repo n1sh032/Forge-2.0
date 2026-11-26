@@ -82,3 +82,9 @@ class ForgeApplication:
 
         if self.manager is None:
             return {"error": "Create a plan first."}
+        manager = self.manager
+        state = manager.get_state()
+        if action == "patch":
+            if state == ForgeState.WAITING_FOR_PLAN_APPROVAL:
+                manager.approve_plan()
+                manager.approve_step()
