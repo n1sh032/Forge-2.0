@@ -16,3 +16,9 @@ class FakeArchitectProvider:
             return '["Add a passing test"]'
         else:
             return "feat: add a passing test"
+
+
+class FakeCoderProvider:
+    def __init__(self):
+        self.calls = 0
+
