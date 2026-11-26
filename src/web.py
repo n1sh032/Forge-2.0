@@ -157,3 +157,6 @@ def main():
     parser.add_argument("--port", type=int, default=8011)
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    os.chdir(root)
+    serve(ForgeApplication(), root / "web", "forge", args.port)
+
