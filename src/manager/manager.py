@@ -3,6 +3,7 @@ from src.agents.architect import Architect
 from src.agents.coder import Coder
 from src.tools.diff_applier import apply_diff
 from src.tools.tester import run_tests
+from src.tools.git_committer import commit_changes
 
 
 
