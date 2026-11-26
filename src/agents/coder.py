@@ -13,6 +13,12 @@ class Coder(BaseAgent):
         self._provider = provider
         self.project_root = project_root
 
+    @property
+    def provider(self):
+        if self._provider is None:
+            self._provider = OmniRouteProvider()
+        return self._provider
+
     def run(self, step, feedback=None):
         file_list = self._list_project_files()
         relevant_files = self._pick_relevant_files(step, file_list)
