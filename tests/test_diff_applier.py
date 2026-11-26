@@ -34,3 +34,6 @@ def test_apply_valid_diff_modifies_file(tmp_path):
     assert target_file.read_text() == "new line\n"
 
 
+def test_apply_invalid_diff_does_not_modify_file(tmp_path):
+    init_git_repo(tmp_path)
+
