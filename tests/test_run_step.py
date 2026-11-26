@@ -106,3 +106,6 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
         project_root=str(project_root),
         max_repair_attempts=2
     )
+
+    manager.start_task("Fix the line")
+    manager.create_plan()
