@@ -58,3 +58,12 @@ class Coder(BaseAgent):
             else:
                 contents[path] = None
 
+        return contents
+
+    def _generate_diff(self, step, file_contents):
+        files_section = ""
+        for path, content in file_contents.items():
+            if content is None:
+                files_section += f"\n--- {path} (does not exist yet) ---\n(new file)\n"
+            else:
+                files_section += f"\n--- {path} (current content) ---\n{content}\n"
