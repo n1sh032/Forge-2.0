@@ -43,4 +43,6 @@ class OmniRouteProvider:
         response.raise_for_status()
 
         data = response.json()
+        self._log_usage(data)
+
         return data["choices"][0]["message"]["content"]
