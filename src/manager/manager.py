@@ -25,6 +25,9 @@ class Manager:
             raise ValueError("Manager is not currently planning")
 
         self.current_plan = self.architect.run(self.current_task)
+
+        self.state_machine.transition("plan_ready")
+
     def get_state(self):
         return self.state_machine.get_state()
 
