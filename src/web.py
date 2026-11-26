@@ -139,3 +139,6 @@ class ForgeApplication:
                 return {"error": "Complete the current step first."}
             if manager.current_step_index + 1 < len(manager.current_plan["steps"]):
                 manager.next_step()
+            else:
+                manager.finish()
+            return self.result()
