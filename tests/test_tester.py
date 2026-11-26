@@ -16,3 +16,5 @@ def test_run_tests_fails(tmp_path):
 
     result = run_tests(project_root=str(tmp_path))
 
+    assert result.passed is False
+    assert "test_broken" in result.output
