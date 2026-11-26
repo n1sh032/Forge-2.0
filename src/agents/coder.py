@@ -17,7 +17,7 @@ class Coder(BaseAgent):
         file_list = self._list_project_files()
         relevant_files = self._pick_relevant_files(step, file_list)
         file_contents = self._read_files(relevant_files)
-        diff = self._generate_diff(step, file_contents)
+        diff = self._generate_diff(step, file_contents, feedback)
         return diff
 
     def _list_project_files(self):
