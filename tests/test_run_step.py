@@ -130,3 +130,6 @@ def test_coder_includes_repair_feedback_in_prompt(tmp_path):
             self.prompt = prompt
             return "diff output"
 
+    provider = RecordingProvider()
+    coder = Coder(provider=provider, project_root=str(tmp_path))
+
