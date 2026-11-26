@@ -51,3 +51,13 @@ The suite exercises plan parsing, patch application, test execution, retry accou
 .\.venv\Scripts\python.exe -m src.main --help
 .\.venv\Scripts\python.exe -m pytest -q
 ```
+
+## Browser workspace
+
+Run `python -m src.web` and open [Forge](http://forge.localhost:8011).
+Supply the absolute path to a clean linked Git worktree. The interface presents
+the plan, generated patch, test output and changed file list. Approve each
+operation and review new files in the target directory before committing.
+The interface and CLI use the existing manager state machine and Git tools.
+
+See [architecture and development](docs/ARCHITECTURE.md).
