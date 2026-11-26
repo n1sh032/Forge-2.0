@@ -22,3 +22,6 @@ def test_plan_approval():
     machine.transition("plan_ready")
 
     assert machine.get_state() == ForgeState.WAITING_FOR_PLAN_APPROVAL
+
+    machine.transition("approve_plan")
+
