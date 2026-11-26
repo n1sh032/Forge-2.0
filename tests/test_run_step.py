@@ -61,3 +61,6 @@ def setup_manager(tmp_path, coder_provider):
     return manager, app_file
 
 
+def test_run_step_success(tmp_path):
+
+    manager, app_file = setup_manager(tmp_path, SucceedingCoderProvider())
