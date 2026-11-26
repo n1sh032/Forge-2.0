@@ -8,7 +8,9 @@ class Architect(BaseAgent):
 
     def __init__(self, provider=None):
         super().__init__("Architect")
-        self.provider = provider or OmniRouteProvider()
+        self._provider = provider
+
+    @property
 
     def run(self, task):
         prompt = (
