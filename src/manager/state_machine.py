@@ -43,6 +43,7 @@ class StateMachine:
 
             ForgeState.CODING: {
                 "coding_done": ForgeState.TESTING,
+                "apply_failed": ForgeState.REPAIRING,
                 "fail": ForgeState.FAILED
             },
             ForgeState.TESTING: {
