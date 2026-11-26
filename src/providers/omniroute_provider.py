@@ -19,6 +19,7 @@ class OmniRouteProvider:
         self.base_url = base_url
         self.model = model
         self.api_key = os.getenv("OMNIROUTE_API_KEY")
+        self.usage_log = []
 
         if not self.api_key:
             raise ValueError(
