@@ -55,3 +55,9 @@ def test_testing_success():
     machine.transition("tests_passed")
 
     assert machine.get_state() == ForgeState.COMMITTING
+
+
+def test_repair_loop():
+
+    machine = StateMachine()
+
