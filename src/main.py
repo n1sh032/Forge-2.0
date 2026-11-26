@@ -31,3 +31,6 @@ def run_project(project, task):
     if not branch or common == local:
         raise ValueError("Use a linked Git worktree on a dedicated branch")
 
+    manager = Manager(project_root=project)
+    manager.start_task(task)
+    plan = manager.create_plan()
