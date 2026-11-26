@@ -34,3 +34,6 @@ def test_step_approval():
 
     machine.transition("start")
     machine.transition("plan_ready")
+    machine.transition("approve_plan")
+    machine.transition("approve_step")
+
