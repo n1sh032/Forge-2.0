@@ -88,3 +88,6 @@ def test_run_tests_fails_moves_to_repairing(tmp_path):
     )
 
     manager, test_file = get_to_testing(tmp_path, diff)
+
+    result = manager.run_tests()
+
