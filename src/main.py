@@ -70,3 +70,6 @@ def run_project(project, task):
         print(result.message)
         if not result.success:
             return 1
+        if index < len(plan["steps"]):
+            manager.next_step()
+    manager.finish()
