@@ -94,3 +94,6 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
     app_file.write_text("old line\n")
 
     import subprocess
+    subprocess.run(["git", "init"], cwd=project_root, capture_output=True)
+    subprocess.run(["git", "config", "user.email", "test@test.com"], cwd=project_root, capture_output=True)
+    subprocess.run(["git", "config", "user.name", "Test"], cwd=project_root, capture_output=True)
