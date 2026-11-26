@@ -58,7 +58,6 @@ def setup_manager(tmp_path, coder_provider):
 
     init_git_repo(project_root)
 
-
     manager = Manager(
         architect=Architect(provider=FakeArchitectProvider()),
         coder=Coder(provider=coder_provider, project_root=str(project_root)),
