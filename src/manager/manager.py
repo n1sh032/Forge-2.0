@@ -14,6 +14,9 @@ class Manager:
 
         self.current_task = None
         self.current_plan = None
+        self.current_step_index = 0
+        self.repair_attempts = 0
+        self.max_repair_attempts = max_repair_attempts
 
     def start_task(self, task):
 
