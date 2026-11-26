@@ -151,3 +151,6 @@ class ForgeApplication:
         ).split("\0")
         return sorted(set(files) - {""})
 
+
+def main():
+    parser = argparse.ArgumentParser(description="Forge coding workspace")
