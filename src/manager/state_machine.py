@@ -70,3 +70,6 @@ class StateMachine:
             raise ValueError(
                 f"Cannot perform '{event}' while in {self.state.value}"
             )
+
+        self.state = transitions[self.state][event]
+
