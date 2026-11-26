@@ -142,3 +142,12 @@ class ForgeApplication:
             else:
                 manager.finish()
             return self.result()
+        return {"error": "Unknown action"}
+
+    def changed_files(self):
+        files = git(self.root, "diff", "--no-renames", "--name-only", "-z").split("\0")
+        files += git(
+            self.root, "ls-files", "--others", "--exclude-standard", "-z"
+        ).split("\0")
+        return sorted(set(files) - {""})
+
