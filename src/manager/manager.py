@@ -86,6 +86,12 @@ class Manager:
             self.state_machine.transition("tests_passed")
             return result
 
+        self.repair_attempts += 1
+
+        if self.repair_attempts >= self.max_repair_attempts:
+            self.state_machine.transition("fail")
+        else:
+            self.state_machine.transition("tests_failed")
     def retry_coding(self):
         self.state_machine.transition("retry_coding")
 
