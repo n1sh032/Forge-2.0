@@ -34,3 +34,6 @@ def init_git_repo(project_root):
 def get_to_testing(tmp_path, diff_text):
     project_root = tmp_path
     test_file = project_root / "test_sample.py"
+    test_file.write_text("")
+
+    init_git_repo(project_root)
