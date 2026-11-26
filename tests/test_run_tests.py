@@ -73,3 +73,18 @@ def test_run_tests_passes_moves_to_committing(tmp_path):
 
     assert result.passed is True
     assert manager.get_state() == ForgeState.COMMITTING
+
+
+def test_run_tests_fails_moves_to_repairing(tmp_path):
+
+    diff = (
+        "diff --git a/test_sample.py b/test_sample.py\n"
+        "index 0000000..1111111 100644\n"
+        "--- a/test_sample.py\n"
+        "+++ b/test_sample.py\n"
+        "@@ -0,0 +1,2 @@\n"
+        "+def test_broken():\n"
+        "+    assert False\n"
+    )
+
+    manager, test_file = get_to_testing(tmp_path, diff)
