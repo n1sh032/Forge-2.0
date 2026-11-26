@@ -7,3 +7,6 @@ def test_manager_can_start_without_provider_credentials(monkeypatch):
     monkeypatch.delenv("OMNIROUTE_API_KEY", raising=False)
     manager = Manager()
     manager.start_task("Describe a calculator")
+    assert manager.get_task() == "Describe a calculator"
+    with pytest.raises(ValueError, match="OMNIROUTE_API_KEY"):
+        manager.create_plan()
