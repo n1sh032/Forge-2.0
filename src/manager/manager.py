@@ -72,6 +72,7 @@ class Manager:
             self.state_machine.transition("coding_done")
             return result
 
+        self.repair_feedback = result.message
         self.repair_attempts += 1
 
         if self.repair_attempts >= self.max_repair_attempts:
