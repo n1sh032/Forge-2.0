@@ -19,3 +19,24 @@ class OmniRouteProvider:
         self.model = model
         self.api_key = os.getenv("OMNIROUTE_API_KEY")
 
+        if not self.api_key:
+            raise ValueError(
+                "OMNIROUTE_API_KEY is not set. Add it to your .env file."
+            )
+
+    def ask(self, prompt):
+        response = requests.post(
+            f"{self.base_url}/chat/completions",
+            headers={
+                "Authorization": f"Bearer {self.api_key}"
+            },
+            json={
+                "model": self.model,
+                "messages": [
+                    {"role": "user", "content": prompt}
+                ]
+            },
+            timeout=30
+        )
+        response.raise_for_status()
+
