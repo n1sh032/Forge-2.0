@@ -1,6 +1,9 @@
 import subprocess
 
 from src.tools.diff_applier import apply_diff
+from src.tools.project_paths import project_path
+import pytest
+
 
 
 def init_git_repo(path):
