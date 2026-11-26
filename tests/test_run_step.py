@@ -73,3 +73,9 @@ def test_run_step_success(tmp_path):
     from src.manager.state_machine import ForgeState
     assert manager.get_state() == ForgeState.TESTING
 
+
+def test_run_step_failure_goes_to_repairing(tmp_path):
+
+    manager, app_file = setup_manager(tmp_path, FailingCoderProvider())
+
+    result = manager.run_step()
