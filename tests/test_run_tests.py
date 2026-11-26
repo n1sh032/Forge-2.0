@@ -10,3 +10,6 @@ class FakeArchitectProvider:
         return '["Add a passing test"]'
 
 
+class FakeCoderProvider:
+    def __init__(self, diff_text):
+        self.calls = 0
