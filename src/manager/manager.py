@@ -12,6 +12,7 @@ class Manager:
         self.current_plan = None
 
     def start_task(self, task):
+
         if self.state_machine.get_state() != ForgeState.IDLE:
             raise ValueError("Manager is already working on a task")
 
