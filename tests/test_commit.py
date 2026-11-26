@@ -79,3 +79,4 @@ def test_commit_creates_git_commit(tmp_path):
         capture_output=True,
         text=True
     )
+    assert log.stdout.strip() == "feat: add a passing test"
