@@ -17,6 +17,18 @@ def commit_changes(project_root, commit_message, approved_paths=()):
     message itself is expected to already be generated elsewhere.
     """
 
+    if not approved_paths or isinstance(approved_paths, str):
+        return CommitResult(False, "Review the diff and supply approved file paths")
+    try:
+        for path in approved_paths:
+            if project_path(project_root, path).is_dir():
+                return CommitResult(False, "Approve individual files, not directories")
+    except (ValueError, OSError) as exc:
+        return CommitResult(False, str(exc))
+    staged = subprocess.run(
+        ["git", "diff", "--cached", "--quiet"], cwd=project_root,
+        capture_output=True,
+    )
     add = subprocess.run(
         ["git", "add", "-A"],
         cwd=project_root,
