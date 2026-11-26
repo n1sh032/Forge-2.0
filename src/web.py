@@ -64,3 +64,6 @@ class ForgeApplication:
             root = Path(raw_root)
             if not root.is_absolute():
                 return {"error": "The project path must be absolute."}
+            root = root.resolve()
+            if root != Path(git(root, "rev-parse", "--show-toplevel")).resolve():
+                return {"error": "Choose the root of a linked Git worktree."}
