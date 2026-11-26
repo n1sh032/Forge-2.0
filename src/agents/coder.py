@@ -13,7 +13,7 @@ class Coder(BaseAgent):
         self.provider = provider or OmniRouteProvider()
         self.project_root = project_root
 
-    def run(self, step):
+    def run(self, step, feedback=None):
         file_list = self._list_project_files()
         relevant_files = self._pick_relevant_files(step, file_list)
         file_contents = self._read_files(relevant_files)
