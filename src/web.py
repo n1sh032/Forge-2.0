@@ -154,3 +154,6 @@ class ForgeApplication:
 
 def main():
     parser = argparse.ArgumentParser(description="Forge coding workspace")
+    parser.add_argument("--port", type=int, default=8011)
+    args = parser.parse_args()
+    root = Path(__file__).resolve().parents[1]
