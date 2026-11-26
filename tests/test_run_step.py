@@ -85,3 +85,9 @@ def test_run_step_failure_goes_to_repairing(tmp_path):
 
     from src.manager.state_machine import ForgeState
     assert manager.get_state() == ForgeState.REPAIRING
+
+
+def test_run_step_fails_permanently_after_max_attempts(tmp_path):
+
+    project_root = tmp_path
+    app_file = project_root / "app.py"
