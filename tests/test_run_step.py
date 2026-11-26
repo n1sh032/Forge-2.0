@@ -82,3 +82,6 @@ def test_run_step_failure_goes_to_repairing(tmp_path):
 
     assert result.success is False
     assert app_file.read_text() == "old line\n"
+
+    from src.manager.state_machine import ForgeState
+    assert manager.get_state() == ForgeState.REPAIRING
