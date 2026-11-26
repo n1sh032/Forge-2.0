@@ -70,6 +70,11 @@ class Manager:
         else:
             self.state_machine.transition("apply_failed")
 
+        return result
+
+    def retry_coding(self):
+        self.state_machine.transition("retry_coding")
+
     def get_state(self):
         return self.state_machine.get_state()
 
