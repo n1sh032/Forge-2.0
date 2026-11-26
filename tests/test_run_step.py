@@ -46,3 +46,9 @@ def setup_manager(tmp_path, coder_provider):
     subprocess.run(["git", "add", "."], cwd=project_root, capture_output=True)
     subprocess.run(["git", "commit", "-m", "initial"], cwd=project_root, capture_output=True)
 
+
+    manager = Manager(
+        architect=Architect(provider=FakeArchitectProvider()),
+        coder=Coder(provider=coder_provider, project_root=str(project_root)),
+        project_root=str(project_root)
+    )
