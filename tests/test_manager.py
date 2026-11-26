@@ -20,7 +20,7 @@ def test_manager_starts_task():
 
 def test_manager_approval_flow():
 
-    manager = Manager()
+    manager = Manager(architect=Architect(provider=FakeProvider()))
 
     manager.start_task("Build a calculator")
     manager.plan_ready()
