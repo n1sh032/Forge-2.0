@@ -79,3 +79,6 @@ class Coder(BaseAgent):
         )
 
         return self.provider.ask(prompt)
+
+    def _strip_code_fence(self, text):
+        text = text.strip()
