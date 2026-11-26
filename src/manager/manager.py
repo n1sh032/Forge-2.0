@@ -61,6 +61,9 @@ class Manager:
         if result.success:
             self.repair_attempts = 0
             self.state_machine.transition("coding_done")
+            return result
+
+        self.repair_attempts += 1
     def get_state(self):
         return self.state_machine.get_state()
 
