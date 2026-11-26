@@ -70,3 +70,6 @@ def test_commit_creates_git_commit(tmp_path):
 
     result = manager.commit()
 
+    assert result.success is True
+    assert manager.get_state() == ForgeState.FINAL_REVIEW
+
