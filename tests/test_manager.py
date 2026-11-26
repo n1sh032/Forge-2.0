@@ -16,3 +16,6 @@ def test_manager_approval_flow():
 
     manager = Manager()
 
+    manager.start_task("Build a calculator")
+    manager.plan_ready()
+
