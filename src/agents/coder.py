@@ -72,6 +72,10 @@ class Coder(BaseAgent):
         prompt = (
             "You are a software engineer implementing ONE small coding step.\n"
             f"Step: {step}\n\n"
+        )
+        if feedback:
+            prompt += f"Previous attempt failed. Use this diagnostic to repair the step:\n{feedback}\n\n"
+        prompt += (
             "Here are the current contents of the relevant files:\n"
             f"{files_section}\n\n"
             "Produce a unified diff (git diff format) that implements this step. "
