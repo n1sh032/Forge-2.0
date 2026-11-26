@@ -19,3 +19,6 @@ class Manager:
 
     def get_task(self):
         return self.current_task
+
+    def plan_ready(self):
+        self.state_machine.transition("plan_ready")
