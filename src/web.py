@@ -79,3 +79,6 @@ class ForgeApplication:
             self.root = root
             self.manager = manager
             return self.result()
+
+        if self.manager is None:
+            return {"error": "Create a plan first."}
