@@ -39,6 +39,9 @@ class FailingCoderProvider:
         self.calls += 1
         if self.calls % 2 == 1:
             return '["app.py"]'
+        else:
+            return "this is not a valid diff"
+
 
 
 def setup_manager(tmp_path, coder_provider):
