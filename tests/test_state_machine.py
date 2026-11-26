@@ -89,3 +89,6 @@ def test_apply_failed_goes_to_repairing():
 
     machine.transition("start")
     machine.transition("plan_ready")
+    machine.transition("approve_plan")
+    machine.transition("approve_step")
+
