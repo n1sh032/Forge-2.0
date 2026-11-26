@@ -16,3 +16,6 @@ class FakeProvider:
 def test_coder_picks_and_reads_relevant_file(tmp_path):
     app_file = tmp_path / "app.py"
     app_file.write_text("old line\n")
+
+    coder = Coder(provider=FakeProvider(), project_root=str(tmp_path))
+
