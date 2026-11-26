@@ -28,3 +28,6 @@ class Coder(BaseAgent):
 
             for filename in filenames:
                 path = os.path.relpath(os.path.join(root, filename), self.project_root)
+                files.append(path.replace("\\", "/"))
+
+        return files
