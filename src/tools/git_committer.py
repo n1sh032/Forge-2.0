@@ -29,6 +29,8 @@ def commit_changes(project_root, commit_message, approved_paths=()):
         ["git", "diff", "--cached", "--quiet"], cwd=project_root,
         capture_output=True,
     )
+    if staged.returncode:
+        return CommitResult(False, "Commit requires an empty Git index")
     add = subprocess.run(
         ["git", "add", "-A"],
         cwd=project_root,
