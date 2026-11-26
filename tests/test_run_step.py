@@ -79,3 +79,6 @@ def test_run_step_failure_goes_to_repairing(tmp_path):
     manager, app_file = setup_manager(tmp_path, FailingCoderProvider())
 
     result = manager.run_step()
+
+    assert result.success is False
+    assert app_file.read_text() == "old line\n"
