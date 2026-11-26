@@ -10,3 +10,9 @@ class FakeArchitectProvider:
     def __init__(self):
         self.calls = 0
 
+    def ask(self, prompt):
+        self.calls += 1
+        if self.calls == 1:
+            return '["Add a passing test"]'
+        else:
+            return "feat: add a passing test"
