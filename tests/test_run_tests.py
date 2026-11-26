@@ -70,3 +70,6 @@ def test_run_tests_passes_moves_to_committing(tmp_path):
     assert manager.get_state() == ForgeState.TESTING
 
     result = manager.run_tests()
+
+    assert result.passed is True
+    assert manager.get_state() == ForgeState.COMMITTING
