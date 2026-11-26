@@ -19,3 +19,6 @@ class FakeCoderProvider:
         self.calls += 1
         if self.calls % 2 == 1:
             return '["test_sample.py"]'
+        else:
+            return self.diff_text
+
