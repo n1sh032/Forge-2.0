@@ -32,6 +32,9 @@ class SucceedingCoderProvider:
 
 
 class FailingCoderProvider:
+    def __init__(self):
+        self.calls = 0
+
     def ask(self, prompt):
         return "this is not a valid diff"
 
