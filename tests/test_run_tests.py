@@ -52,3 +52,15 @@ def get_to_testing(tmp_path, diff_text):
 
     return manager, test_file
 
+
+def test_run_tests_passes_moves_to_committing(tmp_path):
+
+    diff = (
+        "diff --git a/test_sample.py b/test_sample.py\n"
+        "index 0000000..1111111 100644\n"
+        "--- a/test_sample.py\n"
+        "+++ b/test_sample.py\n"
+        "@@ -0,0 +1,2 @@\n"
+        "+def test_ok():\n"
+        "+    assert True\n"
+    )
