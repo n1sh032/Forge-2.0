@@ -67,3 +67,6 @@ def run_project(project, task):
         if not paths or not approve("Commit exactly these files?"):
             return 1
         result = manager.commit(sorted(paths))
+        print(result.message)
+        if not result.success:
+            return 1
