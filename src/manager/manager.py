@@ -1,5 +1,7 @@
 from .state_machine import ForgeState, StateMachine
 from src.agents.architect import Architect
+from src.agents.coder import Coder
+from src.tools.diff_applier import apply_diff
 
 
 class Manager:
