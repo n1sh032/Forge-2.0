@@ -85,3 +85,6 @@ class Coder(BaseAgent):
         if text.startswith("```"):
             lines = text.split("\n")
             lines = lines[1:]
+            if lines and lines[-1].strip() == "```":
+                lines = lines[:-1]
+            text = "\n".join(lines)
