@@ -100,3 +100,9 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
     subprocess.run(["git", "add", "."], cwd=project_root, capture_output=True)
     subprocess.run(["git", "commit", "-m", "initial"], cwd=project_root, capture_output=True)
 
+    manager = Manager(
+        architect=Architect(provider=FakeArchitectProvider()),
+        coder=Coder(provider=FailingCoderProvider(), project_root=str(project_root)),
+        project_root=str(project_root),
+        max_repair_attempts=2
+    )
