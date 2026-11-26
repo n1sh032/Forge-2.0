@@ -37,3 +37,6 @@ class FakeCoderProvider:
                 "+    assert True\n"
             )
 
+
+def init_git_repo(project_root):
+    subprocess.run(["git", "init"], cwd=project_root, capture_output=True)
