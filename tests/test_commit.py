@@ -73,3 +73,9 @@ def test_commit_creates_git_commit(tmp_path):
     assert result.success is True
     assert manager.get_state() == ForgeState.FINAL_REVIEW
 
+    log = subprocess.run(
+        ["git", "log", "-1", "--pretty=%s"],
+        cwd=project_root,
+        capture_output=True,
+        text=True
+    )
