@@ -22,3 +22,6 @@ class FakeCoderProvider:
         else:
             return self.diff_text
 
+
+def init_git_repo(project_root):
+    subprocess.run(["git", "init"], cwd=project_root, capture_output=True)
