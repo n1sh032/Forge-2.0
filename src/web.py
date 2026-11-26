@@ -112,3 +112,6 @@ class ForgeApplication:
                     if manager.repair_attempts >= manager.max_repair_attempts
                     else "apply_failed",
                 )
+                return self.result(output=applied.message)
+            manager.coding_done()
+            checked = manager.run_tests()
