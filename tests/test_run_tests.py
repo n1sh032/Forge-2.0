@@ -46,3 +46,6 @@ def get_to_testing(tmp_path, diff_text):
 
     manager.start_task("Add a test")
     manager.create_plan()
+    manager.approve_plan()
+    manager.approve_step()
+    manager.run_step()
