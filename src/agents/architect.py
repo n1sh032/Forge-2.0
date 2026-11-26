@@ -38,6 +38,8 @@ class Architect(BaseAgent):
             f"The change implemented this step: {step}"
         )
 
+        reply = self.provider.ask(prompt)
+        return self._strip_code_fence(reply).strip().strip('"').strip("'")
     
     def _strip_code_fence(self, text):
         text = text.strip()
