@@ -52,3 +52,6 @@ class Coder(BaseAgent):
 
         for path in file_paths:
             full_path = os.path.join(self.project_root, path)
+            if os.path.exists(full_path):
+                with open(full_path, "r", encoding="utf-8") as f:
+                    contents[path] = f.read()
