@@ -19,3 +19,6 @@ def test_coder_picks_and_reads_relevant_file(tmp_path):
 
     coder = Coder(provider=FakeProvider(), project_root=str(tmp_path))
 
+    diff = coder.run("change old line to new line")
+
+    assert "new line" in diff
