@@ -80,8 +80,6 @@ def test_run_step_success(tmp_path):
 
     assert result.success is True
     assert app_file.read_text() == "new line\n"
-
-    from src.manager.state_machine import ForgeState
     assert manager.get_state() == ForgeState.TESTING
 
 
