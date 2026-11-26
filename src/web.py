@@ -67,3 +67,9 @@ class ForgeApplication:
             root = root.resolve()
             if root != Path(git(root, "rev-parse", "--show-toplevel")).resolve():
                 return {"error": "Choose the root of a linked Git worktree."}
+            if git(root, "status", "--porcelain") or git(
+                root, "rev-parse", "--git-dir"
+            ) == git(root, "rev-parse", "--git-common-dir"):
+                return {"error": "Create a clean linked Git worktree first."}
+            if not git(root, "branch", "--show-current"):
+                return {"error": "The worktree needs a dedicated branch."}
