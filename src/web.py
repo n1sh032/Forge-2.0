@@ -73,3 +73,6 @@ class ForgeApplication:
                 return {"error": "Create a clean linked Git worktree first."}
             if not git(root, "branch", "--show-current"):
                 return {"error": "The worktree needs a dedicated branch."}
+            manager = Manager(project_root=str(root))
+            manager.start_task(task.strip())
+            manager.create_plan()
