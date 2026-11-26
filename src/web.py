@@ -40,3 +40,12 @@ class ForgeApplication:
         from src.manager.manager import Manager
         from src.manager.state_machine import ForgeState
         from src.tools.diff_applier import apply_diff
+
+        if action == "plan":
+            if self.manager and self.manager.get_state() not in {
+                ForgeState.DONE,
+                ForgeState.FAILED,
+            }:
+                return {
+                    "error": "Finish the current plan or restart Forge to choose a different project."
+                }
