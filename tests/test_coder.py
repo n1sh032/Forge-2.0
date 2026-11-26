@@ -13,3 +13,6 @@ class FakeProvider:
             return "--- a/app.py\n+++ b/app.py\n@@ -1 +1 @@\n-old line\n+new line\n"
 
 
+def test_coder_picks_and_reads_relevant_file(tmp_path):
+    app_file = tmp_path / "app.py"
+    app_file.write_text("old line\n")
