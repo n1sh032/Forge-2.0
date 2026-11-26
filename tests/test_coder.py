@@ -22,3 +22,9 @@ def test_coder_picks_and_reads_relevant_file(tmp_path):
     diff = coder.run("change old line to new line")
 
     assert "new line" in diff
+
+
+class NewFileProvider:
+    def __init__(self):
+        self.calls = 0
+
