@@ -84,9 +84,6 @@ class Manager:
     def get_plan(self):
         return self.current_plan
 
-    def plan_ready(self):
-        self.state_machine.transition("plan_ready")
-
     def approve_plan(self):
         self.state_machine.transition("approve_plan")
 
