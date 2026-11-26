@@ -118,3 +118,5 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
 
     from src.manager.state_machine import ForgeState
     assert manager.get_state() == ForgeState.FAILED
+
+    
