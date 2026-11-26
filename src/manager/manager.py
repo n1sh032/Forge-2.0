@@ -46,3 +46,6 @@ class Manager:
 
     def next_step(self):
         self.state_machine.transition("more_steps")
+
+    def finish(self):
+        self.state_machine.transition("finished")
