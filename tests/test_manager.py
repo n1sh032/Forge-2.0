@@ -28,3 +28,9 @@ def test_manager_approval_flow():
     manager.approve_step()
 
     assert manager.get_state() == ForgeState.CODING
+
+
+def test_manager_coding_and_testing():
+
+    manager = Manager()
+
