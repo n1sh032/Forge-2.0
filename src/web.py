@@ -49,3 +49,15 @@ class ForgeApplication:
                 return {
                     "error": "Finish the current plan or restart Forge to choose a different project."
                 }
+            task = payload.get("task", "")
+            raw_root = payload.get("project", "")
+            if (
+                not isinstance(task, str)
+                or not task.strip()
+                or len(task) > 4000
+                or not isinstance(raw_root, str)
+                or not raw_root
+            ):
+                return {
+                    "error": "Enter a task and the absolute path to a clean linked worktree."
+                }
