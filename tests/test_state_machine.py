@@ -92,3 +92,6 @@ def test_apply_failed_goes_to_repairing():
     machine.transition("approve_plan")
     machine.transition("approve_step")
 
+    assert machine.get_state() == ForgeState.CODING
+
+    machine.transition("apply_failed")
