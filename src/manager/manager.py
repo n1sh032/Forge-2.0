@@ -6,6 +6,8 @@ class Manager:
 
     def __init__(self):
         self.state_machine = StateMachine()
+        self.architect = Architect()
+
         self.current_task = None
 
     def start_task(self, task):
