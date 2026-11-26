@@ -19,3 +19,6 @@ class Coder(BaseAgent):
         diff = self._generate_diff(step, file_contents)
         return diff
 
+    def _list_project_files(self):
+        ignored_dirs = {".venv", "__pycache__", ".git", ".forge"}
+        files = []
