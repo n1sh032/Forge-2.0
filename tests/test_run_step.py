@@ -118,7 +118,4 @@ def test_run_step_fails_permanently_after_max_attempts(tmp_path):
     manager.retry_coding()
     manager.run_step()
 
-    from src.manager.state_machine import ForgeState
-    assert manager.get_state() == ForgeState.FAILED
-
-    
+    assert manager.get_state() == ForgeState.FAILED    
