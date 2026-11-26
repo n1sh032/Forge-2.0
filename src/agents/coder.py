@@ -49,3 +49,6 @@ class Coder(BaseAgent):
 
     def _read_files(self, file_paths):
         contents = {}
+
+        for path in file_paths:
+            full_path = os.path.join(self.project_root, path)
