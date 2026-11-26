@@ -1,4 +1,5 @@
 import subprocess
+from src.tools.project_paths import project_path
 
 
 class CommitResult:
