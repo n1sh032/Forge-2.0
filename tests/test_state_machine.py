@@ -86,3 +86,6 @@ def test_invalid_transition():
 def test_apply_failed_goes_to_repairing():
 
     machine = StateMachine()
+
+    machine.transition("start")
+    machine.transition("plan_ready")
