@@ -124,3 +124,12 @@ class ForgeApplication:
             if state != ForgeState.COMMITTING:
                 return {"error": "Tests must pass before committing."}
             files = payload.get("files")
+            if (
+                not files
+                or not isinstance(files, list)
+                or set(files) != set(self.changed_files())
+            ):
+                return {
+                    "error": "Review and approve every changed file before committing."
+                }
+            committed = manager.commit(files)
