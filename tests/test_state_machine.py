@@ -19,3 +19,6 @@ def test_plan_approval():
     machine = StateMachine()
 
     machine.transition("start")
+    machine.transition("plan_ready")
+
+    assert machine.get_state() == ForgeState.WAITING_FOR_PLAN_APPROVAL
