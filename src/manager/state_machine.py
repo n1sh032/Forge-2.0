@@ -13,3 +13,9 @@ class ForgeState(Enum):
     FINAL_REVIEW = "final_review"
     DONE = "done"
     FAILED = "failed"
+
+
+class StateMachine:
+
+    def __init__(self):
+        self.state = ForgeState.IDLE
