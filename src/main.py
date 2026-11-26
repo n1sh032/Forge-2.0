@@ -25,3 +25,6 @@ def run_project(project, task):
     root = Path(git_output(project, "rev-parse", "--show-toplevel").strip()).resolve()
     if project != root or git_output(project, "status", "--porcelain"):
         raise ValueError("Provide the root of a clean dedicated Git worktree")
+    branch = git_output(project, "branch", "--show-current").strip()
+    common = git_output(project, "rev-parse", "--git-common-dir").strip()
+    local = git_output(project, "rev-parse", "--git-dir").strip()
