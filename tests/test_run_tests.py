@@ -37,3 +37,9 @@ def get_to_testing(tmp_path, diff_text):
     test_file.write_text("")
 
     init_git_repo(project_root)
+
+    manager = Manager(
+        architect=Architect(provider=FakeArchitectProvider()),
+        coder=Coder(provider=FakeCoderProvider(diff_text), project_root=str(project_root)),
+        project_root=str(project_root)
+    )
