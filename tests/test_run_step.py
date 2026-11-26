@@ -139,3 +139,6 @@ def test_coder_includes_repair_feedback_in_prompt(tmp_path):
         feedback="AssertionError: expected 2 but got 1",
     )
 
+    assert result == "diff output"
+    assert "AssertionError: expected 2 but got 1" in provider.prompt
+    assert "Previous attempt failed" in provider.prompt
