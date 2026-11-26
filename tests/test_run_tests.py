@@ -91,3 +91,5 @@ def test_run_tests_fails_moves_to_repairing(tmp_path):
 
     result = manager.run_tests()
 
+    assert result.passed is False
+    assert manager.get_state() == ForgeState.REPAIRING
