@@ -79,3 +79,12 @@ def run_project(project, task):
 def main():
     parser = argparse.ArgumentParser(description="Draft or run a Forge plan with review")
     parser.add_argument("task")
+    parser.add_argument("--project", type=Path, help="clean linked Git worktree to change")
+    args = parser.parse_args()
+    if args.project:
+        try:
+            return run_project(args.project.resolve(), args.task)
+        except (OSError, ValueError, subprocess.CalledProcessError, EOFError) as exc:
+            parser.exit(1, f"Forge stopped: {exc}\n")
+    print(json.dumps(Architect().run(args.task), indent=2))
+
