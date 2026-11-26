@@ -22,3 +22,6 @@ class Coder(BaseAgent):
     def _list_project_files(self):
         ignored_dirs = {".venv", "__pycache__", ".git", ".forge"}
         files = []
+
+        for root, dirs, filenames in os.walk(self.project_root):
+            dirs[:] = [d for d in dirs if d not in ignored_dirs]
