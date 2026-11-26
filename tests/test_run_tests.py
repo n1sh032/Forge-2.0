@@ -13,3 +13,9 @@ class FakeArchitectProvider:
 class FakeCoderProvider:
     def __init__(self, diff_text):
         self.calls = 0
+        self.diff_text = diff_text
+
+    def ask(self, prompt):
+        self.calls += 1
+        if self.calls % 2 == 1:
+            return '["test_sample.py"]'
