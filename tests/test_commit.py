@@ -61,3 +61,6 @@ def test_commit_creates_git_commit(tmp_path):
 
     manager.start_task("Add a test")
     manager.create_plan()
+    manager.approve_plan()
+    manager.approve_step()
+    manager.run_step()
