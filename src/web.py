@@ -133,3 +133,9 @@ class ForgeApplication:
                     "error": "Review and approve every changed file before committing."
                 }
             committed = manager.commit(files)
+            return self.result(output=committed.message)
+        if action == "next":
+            if state != ForgeState.FINAL_REVIEW:
+                return {"error": "Complete the current step first."}
+            if manager.current_step_index + 1 < len(manager.current_plan["steps"]):
+                manager.next_step()
