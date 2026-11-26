@@ -13,3 +13,6 @@ class Manager:
 
         self.current_task = task
         self.state_machine.transition("start")
+
+    def get_state(self):
+        return self.state_machine.get_state()
