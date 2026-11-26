@@ -61,3 +61,6 @@ def run_project(project, task):
         print(git_output(project, "diff", "--no-ext-diff"))
         paths = set(git_output(project, "diff", "--no-renames", "--name-only", "-z").split("\0"))
         paths.update(git_output(project, "ls-files", "--others", "--exclude-standard", "-z").split("\0"))
+        paths.discard("")
+        for path in sorted(paths):
+            print(f"Changed file: {path}")
