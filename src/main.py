@@ -43,3 +43,15 @@ def run_project(project, task):
         if not approve(f"Start step {index}: {step}"):
             return 1
         manager.approve_step()
+        while manager.get_state() == ForgeState.CODING:
+            result = manager.run_step(review_patch=review_patch)
+            if result is None:
+                return 1
+            print(result.message)
+            if result.success:
+                result = manager.run_tests()
+                print(result.output)
+            if manager.get_state() == ForgeState.REPAIRING:
+                if not approve("Send the failure output to OmniRoute and request another patch?"):
+                    return 1
+                manager.retry_coding()
