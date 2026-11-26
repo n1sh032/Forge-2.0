@@ -37,3 +37,6 @@ def test_next_step_advances_index():
     manager.approve_step()
     manager.coding_done()
     manager.tests_passed()
+    manager.commit_done()
+    manager.next_step()
+
