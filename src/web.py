@@ -94,3 +94,12 @@ class ForgeApplication:
                 manager.retry_coding()
             elif state != ForgeState.CODING:
                 return {"error": "A patch cannot be generated in the current state."}
+            self.patch = manager.coder.run(
+                manager.get_current_step(),
+                feedback=manager.repair_feedback,
+            )
+            return self.result(patch=self.patch)
+        if action == "apply":
+            if state != ForgeState.CODING or not self.patch:
+                return {"error": "Generate and review a patch first."}
+            patch, self.patch = self.patch, None
