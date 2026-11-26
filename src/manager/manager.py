@@ -95,6 +95,7 @@ class Manager:
             self.state_machine.transition("tests_passed")
             return result
 
+        self.repair_feedback = result.output
         self.repair_attempts += 1
 
         if self.repair_attempts >= self.max_repair_attempts:
