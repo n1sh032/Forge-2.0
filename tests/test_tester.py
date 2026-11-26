@@ -10,3 +10,6 @@ def test_run_tests_passes(tmp_path):
     assert result.passed is True
 
 
+def test_run_tests_fails(tmp_path):
+    test_file = tmp_path / "test_sample.py"
+    test_file.write_text("def test_broken():\n    assert False\n")
