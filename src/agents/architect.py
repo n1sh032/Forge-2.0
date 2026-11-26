@@ -20,6 +20,8 @@ class Architect(BaseAgent):
         )
 
         reply = self.provider.ask(prompt)
+        steps = json.loads(self._strip_code_fence(reply))
+
         return {
             "task": task,
             "steps": [
