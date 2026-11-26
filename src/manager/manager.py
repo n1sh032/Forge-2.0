@@ -43,3 +43,6 @@ class Manager:
 
     def commit_done(self):
         self.state_machine.transition("commit_done")
+
+    def next_step(self):
+        self.state_machine.transition("more_steps")
