@@ -58,3 +58,6 @@ def test_commit_creates_git_commit(tmp_path):
         coder=Coder(provider=FakeCoderProvider(), project_root=str(project_root)),
         project_root=str(project_root)
     )
+
+    manager.start_task("Add a test")
+    manager.create_plan()
