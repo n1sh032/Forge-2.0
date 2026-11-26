@@ -10,7 +10,7 @@ class TestResult:
         self.output = output
 
 
-def run_tests(project_root="."):
+def run_tests(project_root=".", timeout=120):
     """
     Runs the test suite in project_root using pytest.
 
