@@ -43,3 +43,6 @@ def test_apply_invalid_diff_does_not_modify_file(tmp_path):
     subprocess.run(["git", "add", "."], cwd=tmp_path, capture_output=True)
     subprocess.run(["git", "commit", "-m", "initial"], cwd=tmp_path, capture_output=True)
 
+    bad_diff = "this is not a real diff at all"
+
+    result = apply_diff(bad_diff, project_root=str(tmp_path))
