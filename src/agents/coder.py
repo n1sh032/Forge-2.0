@@ -46,3 +46,6 @@ class Coder(BaseAgent):
 
         reply = self.provider.ask(prompt)
         return json.loads(self._strip_code_fence(reply))
+
+    def _read_files(self, file_paths):
+        contents = {}
