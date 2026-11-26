@@ -31,3 +31,6 @@ def init_git_repo(project_root):
     subprocess.run(["git", "commit", "-m", "initial"], cwd=project_root, capture_output=True)
 
 
+def get_to_testing(tmp_path, diff_text):
+    project_root = tmp_path
+    test_file = project_root / "test_sample.py"
