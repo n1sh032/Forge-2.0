@@ -31,3 +31,6 @@ def test_next_step_advances_index():
 
     manager = Manager(architect=Architect(provider=FakeProvider()))
 
+    manager.start_task("Build a calculator")
+    manager.create_plan()
+    manager.approve_plan()
