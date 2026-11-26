@@ -52,3 +52,9 @@ def test_commit_creates_git_commit(tmp_path):
     test_file.write_text("")
 
     init_git_repo(project_root)
+
+    manager = Manager(
+        architect=Architect(provider=FakeArchitectProvider()),
+        coder=Coder(provider=FakeCoderProvider(), project_root=str(project_root)),
+        project_root=str(project_root)
+    )
