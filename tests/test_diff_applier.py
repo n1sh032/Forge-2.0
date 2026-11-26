@@ -37,3 +37,6 @@ def test_apply_valid_diff_modifies_file(tmp_path):
 def test_apply_invalid_diff_does_not_modify_file(tmp_path):
     init_git_repo(tmp_path)
 
+    target_file = tmp_path / "app.py"
+    target_file.write_text("old line\n")
+
