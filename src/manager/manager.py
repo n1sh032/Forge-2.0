@@ -19,6 +19,12 @@ class Manager:
         self.current_task = task
         self.state_machine.transition("start")
 
+    def create_plan(self):
+
+        if self.state_machine.get_state() != ForgeState.PLANNING:
+            raise ValueError("Manager is not currently planning")
+
+        self.current_plan = self.architect.run(self.current_task)
     def get_state(self):
         return self.state_machine.get_state()
 
