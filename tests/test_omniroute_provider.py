@@ -19,3 +19,6 @@ def omniroute_is_running():
 def test_ask_returns_text():
 
     provider = OmniRouteProvider()
+
+    reply = provider.ask("Reply with exactly one word: hello")
+
