@@ -22,3 +22,5 @@ def test_ask_returns_text():
 
     reply = provider.ask("Reply with exactly one word: hello")
 
+    assert isinstance(reply, str)
+    assert len(reply) > 0
