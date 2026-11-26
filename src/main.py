@@ -34,3 +34,6 @@ def run_project(project, task):
     manager = Manager(project_root=project)
     manager.start_task(task)
     plan = manager.create_plan()
+    print(json.dumps(plan, indent=2))
+    if not approve("Approve this plan?"):
+        return 1
