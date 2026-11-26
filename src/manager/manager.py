@@ -31,3 +31,6 @@ class Manager:
 
     def coding_done(self):
         self.state_machine.transition("coding_done")
+
+    def tests_passed(self):
+        self.state_machine.transition("tests_passed")
