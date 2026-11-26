@@ -37,3 +37,6 @@ class FailingCoderProvider:
 def setup_manager(tmp_path, coder_provider):
     project_root = tmp_path
     app_file = project_root / "app.py"
+    app_file.write_text("old line\n")
+
+
