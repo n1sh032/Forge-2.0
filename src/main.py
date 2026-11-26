@@ -10,3 +10,9 @@ from src.manager.state_machine import ForgeState
 
 def git_output(project, *args):
     return subprocess.check_output(["git", *args], cwd=project, text=True, encoding="utf-8")
+
+
+def approve(prompt):
+    return input(f"{prompt} [y/N] ").strip().lower() == "y"
+
+
