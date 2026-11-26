@@ -28,3 +28,9 @@ class SucceedingCoderProvider:
                 "+new line\n"
             )
 
+
+class FailingCoderProvider:
+    def ask(self, prompt):
+        return "this is not a valid diff"
+
+
