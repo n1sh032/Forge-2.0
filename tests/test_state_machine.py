@@ -10,3 +10,6 @@ def test_start_planning():
     assert machine.get_state() == ForgeState.IDLE
 
     machine.transition("start")
+
+    assert machine.get_state() == ForgeState.PLANNING
+
