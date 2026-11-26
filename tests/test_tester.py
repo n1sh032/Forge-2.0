@@ -7,3 +7,6 @@ def test_run_tests_passes(tmp_path):
 
     result = run_tests(project_root=str(tmp_path))
 
+    assert result.passed is True
+
+
