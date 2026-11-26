@@ -50,3 +50,6 @@ def test_manager_coding_and_testing():
 def test_manager_creates_plan():
 
     manager = Manager()
+
+    manager.start_task("Build a calculator")
+
