@@ -35,6 +35,7 @@ class StateMachine:
                 "approve_plan": ForgeState.WAITING_FOR_STEP_APPROVAL,
                 "reject_plan": ForgeState.PLANNING
             },
+
             ForgeState.WAITING_FOR_STEP_APPROVAL: {
                 "approve_step": ForgeState.CODING,
                 "reject_step": ForgeState.WAITING_FOR_STEP_APPROVAL
