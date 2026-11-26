@@ -31,6 +31,27 @@ def apply_diff(diff_text, project_root="."):
         temp_path = temp_file.name
 
     try:
+        root = Path(project_root).resolve()
+        top = subprocess.run(
+            ["git", "rev-parse", "--show-toplevel"], cwd=root,
+            capture_output=True, text=True,
+        )
+        if top.returncode or Path(top.stdout.strip()).resolve() != root:
+            return DiffResult(False, "Target must be the root of a Git worktree")
+        summary = subprocess.run(
+            ["git", "apply", "--numstat", "-z", temp_path], cwd=root,
+            capture_output=True,
+        )
+        if summary.returncode or not summary.stdout:
+            return DiffResult(False, "Diff has no valid file changes")
+        try:
+            for record in summary.stdout.rstrip(b"\0").split(b"\0"):
+                _, _, name = record.split(b"\t", 2)
+                project_path(root, name.decode("utf-8"))
+        except (ValueError, OSError) as exc:
+            return DiffResult(False, str(exc))
+        if any(line.startswith(("new file mode 120000", "new mode 120000", "new file mode 160000", "new mode 160000")) for line in diff_text.splitlines()):
+            return DiffResult(False, "Generated symbolic links and submodules are not supported")
         check = subprocess.run(
             ["git", "apply", "--check", temp_path],
             cwd=project_root,
