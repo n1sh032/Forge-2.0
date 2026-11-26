@@ -45,3 +45,5 @@ def test_manager_coding_and_testing():
     manager.tests_passed()
 
     assert manager.get_state() == ForgeState.COMMITTING
+
+
