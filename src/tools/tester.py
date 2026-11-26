@@ -15,7 +15,7 @@ def run_tests(project_root=".", timeout=120):
     Runs the test suite in project_root using pytest.
 
     Deterministic - no LLM involved. Returns a TestResult describing
-    whether tests passed and the raw output, so a failure can be
+    whether tests passed and the end of the output, so a failure can be
     inspected or shown to the user.
     """
 
