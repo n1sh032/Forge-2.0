@@ -43,3 +43,6 @@ def get_to_testing(tmp_path, diff_text):
         coder=Coder(provider=FakeCoderProvider(diff_text), project_root=str(project_root)),
         project_root=str(project_root)
     )
+
+    manager.start_task("Add a test")
+    manager.create_plan()
