@@ -64,3 +64,6 @@ def test_repair_loop():
     machine.transition("start")
     machine.transition("plan_ready")
     machine.transition("approve_plan")
+    machine.transition("approve_step")
+    machine.transition("coding_done")
+
