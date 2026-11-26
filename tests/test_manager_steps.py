@@ -25,3 +25,9 @@ def test_get_current_step_before_plan_raises():
 
     with pytest.raises(ValueError):
         manager.get_current_step()
+
+
+def test_next_step_advances_index():
+
+    manager = Manager(architect=Architect(provider=FakeProvider()))
+
