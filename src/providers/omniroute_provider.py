@@ -49,3 +49,11 @@ class OmniRouteProvider:
 
     def _log_usage(self, data):
         usage = data.get("usage", {})
+
+        self.usage_log.append({
+            "model": self.model,
+            "input_tokens": usage.get("prompt_tokens"),
+            "output_tokens": usage.get("completion_tokens"),
+            "total_tokens": usage.get("total_tokens"),
+            "raw_usage": usage
+        })
