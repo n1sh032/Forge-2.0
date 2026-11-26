@@ -103,3 +103,6 @@ class ForgeApplication:
             if state != ForgeState.CODING or not self.patch:
                 return {"error": "Generate and review a patch first."}
             patch, self.patch = self.patch, None
+            applied = apply_diff(patch, project_root=self.root)
+            if not applied.success:
+                manager.repair_feedback = applied.message
