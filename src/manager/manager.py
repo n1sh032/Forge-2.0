@@ -53,7 +53,7 @@ class Manager:
 
         return steps[self.current_step_index]
 
-    def run_step(self):
+    def run_step(self, review_patch=None):
 
         if self.state_machine.get_state() != ForgeState.CODING:
             raise ValueError("Manager is not currently in the CODING state")
