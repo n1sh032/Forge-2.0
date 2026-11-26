@@ -16,3 +16,6 @@ def git(root, *args):
     ).strip()
 
 
+class ForgeApplication:
+    actions = {"plan", "patch", "apply", "commit", "next"}
+
