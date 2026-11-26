@@ -58,6 +58,7 @@ class StateMachine:
                 "retry_coding": ForgeState.CODING,
                 "fail": ForgeState.FAILED
             },
+
             ForgeState.COMMITTING: {
                 "commit_done": ForgeState.FINAL_REVIEW,
                 "fail": ForgeState.FAILED
