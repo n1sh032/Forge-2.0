@@ -64,3 +64,6 @@ def run_project(project, task):
         paths.discard("")
         for path in sorted(paths):
             print(f"Changed file: {path}")
+        if not paths or not approve("Commit exactly these files?"):
+            return 1
+        result = manager.commit(sorted(paths))
