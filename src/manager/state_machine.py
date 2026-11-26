@@ -10,3 +10,6 @@ class ForgeState(Enum):
     TESTING = "testing"
     REPAIRING = "repairing"
     COMMITTING = "committing"
+    FINAL_REVIEW = "final_review"
+    DONE = "done"
+    FAILED = "failed"
