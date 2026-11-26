@@ -113,3 +113,5 @@ def test_retry_coding_returns_to_coding():
 
     machine.transition("retry_coding")
 
+    assert machine.get_state() == ForgeState.CODING
+
