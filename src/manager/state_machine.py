@@ -73,3 +73,5 @@ class StateMachine:
 
         self.state = transitions[self.state][event]
 
+    def get_state(self):
+        return self.state
