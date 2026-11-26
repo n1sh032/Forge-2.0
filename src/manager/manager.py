@@ -9,6 +9,7 @@ class Manager:
         self.architect = Architect()
 
         self.current_task = None
+        self.current_plan = None
 
     def start_task(self, task):
         if self.state_machine.get_state() != ForgeState.IDLE:
