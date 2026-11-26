@@ -34,3 +34,6 @@ def run_tests(project_root=".", timeout=120):
             passed = False
             prefix = f"pytest timed out after {timeout} seconds\n"
         start = max(0, log.seek(0, 2) - 64 * 1024)
+        log.seek(start)
+        if start:
+            prefix += "[Showing the last 64 KiB of pytest output]\n"
