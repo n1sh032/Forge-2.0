@@ -55,3 +55,6 @@ def run_project(project, task):
                 if not approve("Send the failure output to OmniRoute and request another patch?"):
                     return 1
                 manager.retry_coding()
+
+        if manager.get_state() != ForgeState.COMMITTING:
+            return 1
