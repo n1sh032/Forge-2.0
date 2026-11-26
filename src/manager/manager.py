@@ -28,6 +28,8 @@ class Manager:
 
         self.state_machine.transition("plan_ready")
 
+        return self.current_plan
+
     def get_state(self):
         return self.state_machine.get_state()
 
