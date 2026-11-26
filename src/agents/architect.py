@@ -26,7 +26,7 @@ class Architect(BaseAgent):
             "task": task,
             "steps": steps
         }
-
+    
     def _strip_code_fence(self, text):
         text = text.strip()
         if text.startswith("```"):
