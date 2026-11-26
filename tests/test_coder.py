@@ -28,3 +28,9 @@ class NewFileProvider:
     def __init__(self):
         self.calls = 0
 
+    def ask(self, prompt):
+        self.calls += 1
+        if self.calls == 1:
+            return '["login.py"]'
+        else:
+            assert "does not exist yet" in prompt
