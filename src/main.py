@@ -58,3 +58,6 @@ def run_project(project, task):
 
         if manager.get_state() != ForgeState.COMMITTING:
             return 1
+        print(git_output(project, "diff", "--no-ext-diff"))
+        paths = set(git_output(project, "diff", "--no-renames", "--name-only", "-z").split("\0"))
+        paths.update(git_output(project, "ls-files", "--others", "--exclude-standard", "-z").split("\0"))
