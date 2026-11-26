@@ -104,3 +104,6 @@ def test_retry_coding_returns_to_coding():
     machine = StateMachine()
 
     machine.transition("start")
+    machine.transition("plan_ready")
+    machine.transition("approve_plan")
+    machine.transition("approve_step")
