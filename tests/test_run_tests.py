@@ -49,3 +49,6 @@ def get_to_testing(tmp_path, diff_text):
     manager.approve_plan()
     manager.approve_step()
     manager.run_step()
+
+    return manager, test_file
+
