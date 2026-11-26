@@ -31,3 +31,15 @@ class Coder(BaseAgent):
                 files.append(path.replace("\\", "/"))
 
         return files
+
+    def _pick_relevant_files(self, step, file_list):
+        prompt = (
+            "You are a software engineer deciding which files a coding step touches.\n"
+            "Here is the project's file list:\n"
+            f"{json.dumps(file_list, indent=2)}\n\n"
+            f"Step to implement: {step}\n\n"
+            "Respond with ONLY a JSON array of file paths (relative to the project root) "
+            "that need to be created or modified for this step. "
+            "Use forward slashes. If a needed file doesn't exist yet, include its path anyway. "
+            "No other text."
+        )
