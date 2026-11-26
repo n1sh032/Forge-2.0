@@ -52,6 +52,7 @@ def apply_diff(diff_text, project_root="."):
             return DiffResult(False, str(exc))
         if any(line.startswith(("new file mode 120000", "new mode 120000", "new file mode 160000", "new mode 160000")) for line in diff_text.splitlines()):
             return DiffResult(False, "Generated symbolic links and submodules are not supported")
+
         check = subprocess.run(
             ["git", "apply", "--check", temp_path],
             cwd=project_root,
