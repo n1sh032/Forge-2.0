@@ -55,3 +55,6 @@ def setup_manager(tmp_path, coder_provider):
 
     manager.start_task("Fix the line")
     manager.create_plan()
+    manager.approve_plan()
+    manager.approve_step()
+
