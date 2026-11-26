@@ -55,6 +55,7 @@ class StateMachine:
 
             ForgeState.REPAIRING: {
                 "repair_done": ForgeState.TESTING,
+                "retry_coding": ForgeState.CODING,
                 "fail": ForgeState.FAILED
             },
             ForgeState.COMMITTING: {
