@@ -83,3 +83,6 @@ def test_invalid_transition():
     with pytest.raises(ValueError):
         machine.transition("approve_step")
 
+def test_apply_failed_goes_to_repairing():
+
+    machine = StateMachine()
