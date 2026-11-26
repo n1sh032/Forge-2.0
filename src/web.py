@@ -160,3 +160,6 @@ def main():
     os.chdir(root)
     serve(ForgeApplication(), root / "web", "forge", args.port)
 
+
+if __name__ == "__main__":
+    main()
