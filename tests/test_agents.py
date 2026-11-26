@@ -8,7 +8,7 @@ class FakeProvider:
 
 def test_architect():
 
-    architect = Architect()
+    architect = Architect(provider=FakeProvider())
 
     plan = architect.run("Build a calculator")
 
