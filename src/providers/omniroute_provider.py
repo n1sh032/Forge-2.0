@@ -46,3 +46,6 @@ class OmniRouteProvider:
         self._log_usage(data)
 
         return data["choices"][0]["message"]["content"]
+
+    def _log_usage(self, data):
+        usage = data.get("usage", {})
