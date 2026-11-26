@@ -107,6 +107,7 @@ class Manager:
 
     def next_step(self):
         self.state_machine.transition("more_steps")
+        self.current_step_index += 1
 
     def finish(self):
         self.state_machine.transition("finished")
