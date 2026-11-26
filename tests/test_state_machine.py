@@ -67,3 +67,6 @@ def test_repair_loop():
     machine.transition("approve_step")
     machine.transition("coding_done")
 
+    machine.transition("tests_failed")
+
+    assert machine.get_state() == ForgeState.REPAIRING
