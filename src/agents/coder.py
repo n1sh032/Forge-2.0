@@ -43,3 +43,6 @@ class Coder(BaseAgent):
             "Use forward slashes. If a needed file doesn't exist yet, include its path anyway. "
             "No other text."
         )
+
+        reply = self.provider.ask(prompt)
+        return json.loads(self._strip_code_fence(reply))
