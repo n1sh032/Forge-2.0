@@ -40,3 +40,6 @@ def test_step_approval():
     assert machine.get_state() == ForgeState.CODING
 
 
+def test_testing_success():
+
+    machine = StateMachine()
