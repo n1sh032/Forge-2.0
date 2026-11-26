@@ -9,7 +9,7 @@ class CommitResult:
         self.message = message
 
 
-def commit_changes(project_root, commit_message):
+def commit_changes(project_root, commit_message, approved_paths=()):
     """
     Stages all changes and commits them with the given message.
 
