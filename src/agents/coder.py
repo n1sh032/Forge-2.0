@@ -88,3 +88,4 @@ class Coder(BaseAgent):
             if lines and lines[-1].strip() == "```":
                 lines = lines[:-1]
             text = "\n".join(lines)
+        return text.strip()
