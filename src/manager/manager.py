@@ -96,6 +96,12 @@ class Manager:
 
         return result
 
+    def commit(self):
+
+        if self.state_machine.get_state() != ForgeState.COMMITTING:
+            raise ValueError("Manager is not currently in the COMMITTING state")
+
+        message = self.architect.generate_commit_message(self.get_current_step())
     def retry_coding(self):
         self.state_machine.transition("retry_coding")
 
