@@ -11,7 +11,7 @@ class CommitResult:
 
 def commit_changes(project_root, commit_message, approved_paths=()):
     """
-    Stages all changes and commits them with the given message.
+    Stages explicitly reviewed files and commits them with the given message.
 
     Deterministic - no LLM involved here, just running git. The
     message itself is expected to already be generated elsewhere.
