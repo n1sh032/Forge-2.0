@@ -22,3 +22,6 @@ def test_patches_that_apply_cannot_reset_failed_test_budget(monkeypatch):
 
     manager.run_step()
     manager.coder.run.assert_called_once_with("write patch")
+    manager.run_tests()
+    assert manager.get_state() == ForgeState.REPAIRING
+
