@@ -10,8 +10,9 @@ class OmniRouteProvider:
     Minimal wrapper around a local OmniRoute instance.
 
     OmniRoute exposes an OpenAI-compatible API. This class sends one
-    prompt and returns the model's text reply. No retries, no token
-    tracking, no fallback yet - those come later.
+    prompt and returns the model's text reply. Also keeps a simple
+    in-memory log of token usage per call. No retries, no persistence,
+    no fallback yet - those come later.
     """
 
     def __init__(self, base_url="http://localhost:20128/v1", model="kiro/claude-haiku-4.5"):
