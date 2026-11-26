@@ -59,7 +59,12 @@ class Manager:
             raise ValueError("Manager is not currently in the CODING state")
 
         step = self.get_current_step()
-        diff = self.coder.run(step)
+        if self.repair_feedback:
+            diff = self.coder.run(step, feedback=self.repair_feedback)
+        else:
+            diff = self.coder.run(step)
+        if review_patch is not None and not review_patch(diff):
+            self.state_machine.transition("fail")
         result = apply_diff(diff, project_root=self.project_root)
 
         if result.success:
