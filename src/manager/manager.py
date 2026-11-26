@@ -34,3 +34,6 @@ class Manager:
 
     def tests_passed(self):
         self.state_machine.transition("tests_passed")
+
+    def tests_failed(self):
+        self.state_machine.transition("tests_failed")
