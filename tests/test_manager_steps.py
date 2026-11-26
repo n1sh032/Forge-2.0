@@ -40,3 +40,4 @@ def test_next_step_advances_index():
     manager.commit_done()
     manager.next_step()
 
+    assert manager.get_current_step() == "Step two"
