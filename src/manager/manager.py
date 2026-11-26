@@ -92,6 +92,9 @@ class Manager:
             self.state_machine.transition("fail")
         else:
             self.state_machine.transition("tests_failed")
+
+        return result
+
     def retry_coding(self):
         self.state_machine.transition("retry_coding")
 
