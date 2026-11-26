@@ -106,3 +106,9 @@ class ForgeApplication:
             applied = apply_diff(patch, project_root=self.root)
             if not applied.success:
                 manager.repair_feedback = applied.message
+                manager.repair_attempts += 1
+                manager.state_machine.transition(
+                    "fail"
+                    if manager.repair_attempts >= manager.max_repair_attempts
+                    else "apply_failed",
+                )
