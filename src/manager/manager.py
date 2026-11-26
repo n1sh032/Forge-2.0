@@ -102,6 +102,12 @@ class Manager:
             raise ValueError("Manager is not currently in the COMMITTING state")
 
         message = self.architect.generate_commit_message(self.get_current_step())
+        result = commit_changes(self.project_root, message)
+
+        if result.success:
+            self.state_machine.transition("commit_done")
+        else:
+            self.state_machine.transition("fail")
     def retry_coding(self):
         self.state_machine.transition("retry_coding")
 
