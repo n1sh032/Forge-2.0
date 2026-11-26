@@ -88,3 +88,6 @@ def main():
             parser.exit(1, f"Forge stopped: {exc}\n")
     print(json.dumps(Architect().run(args.task), indent=2))
 
+
+if __name__ == "__main__":
+    raise SystemExit(main())
