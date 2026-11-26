@@ -76,3 +76,6 @@ def run_project(project, task):
     return 0
 
 
+def main():
+    parser = argparse.ArgumentParser(description="Draft or run a Forge plan with review")
+    parser.add_argument("task")
