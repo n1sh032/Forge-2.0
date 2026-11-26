@@ -40,3 +40,5 @@ class OmniRouteProvider:
         )
         response.raise_for_status()
 
+        data = response.json()
+        return data["choices"][0]["message"]["content"]
