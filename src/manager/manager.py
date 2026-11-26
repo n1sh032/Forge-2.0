@@ -108,6 +108,9 @@ class Manager:
             self.state_machine.transition("commit_done")
         else:
             self.state_machine.transition("fail")
+
+        return result
+
     def retry_coding(self):
         self.state_machine.transition("retry_coding")
 
