@@ -37,3 +37,6 @@ def test_manager_coding_and_testing():
     manager.start_task("Build a calculator")
     manager.plan_ready()
     manager.approve_plan()
+    manager.approve_step()
+    manager.coding_done()
+
