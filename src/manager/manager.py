@@ -40,3 +40,6 @@ class Manager:
 
     def repair_done(self):
         self.state_machine.transition("repair_done")
+
+    def commit_done(self):
+        self.state_machine.transition("commit_done")
