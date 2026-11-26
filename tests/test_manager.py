@@ -40,3 +40,6 @@ def test_manager_coding_and_testing():
     manager.approve_step()
     manager.coding_done()
 
+    assert manager.get_state() == ForgeState.TESTING
+
+    manager.tests_passed()
