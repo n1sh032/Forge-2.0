@@ -28,3 +28,6 @@ def init_git_repo(project_root):
     subprocess.run(["git", "config", "user.email", "test@test.com"], cwd=project_root, capture_output=True)
     subprocess.run(["git", "config", "user.name", "Test"], cwd=project_root, capture_output=True)
     subprocess.run(["git", "add", "."], cwd=project_root, capture_output=True)
+    subprocess.run(["git", "commit", "-m", "initial"], cwd=project_root, capture_output=True)
+
+
