@@ -43,3 +43,4 @@ def test_coder_handles_new_file(tmp_path):
 
     diff = coder.run("create a login file")
 
+    assert "login.py" in diff
