@@ -22,3 +22,6 @@ def commit_changes(project_root, commit_message):
         capture_output=True,
         text=True
     )
+
+    if add.returncode != 0:
+        return CommitResult(success=False, message=f"git add failed:\n{add.stderr}")
