@@ -43,6 +43,9 @@ class FailingCoderProvider:
             return "this is not a valid diff"
 
 
+def init_git_repo(project_root):
+    subprocess.run(["git", "init"], cwd=project_root, capture_output=True)
+
 
 def setup_manager(tmp_path, coder_provider):
     project_root = tmp_path
