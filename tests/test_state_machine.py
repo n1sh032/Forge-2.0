@@ -13,3 +13,9 @@ def test_start_planning():
 
     assert machine.get_state() == ForgeState.PLANNING
 
+
+def test_plan_approval():
+
+    machine = StateMachine()
+
+    machine.transition("start")
