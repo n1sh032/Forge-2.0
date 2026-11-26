@@ -107,3 +107,6 @@ def test_retry_coding_returns_to_coding():
     machine.transition("plan_ready")
     machine.transition("approve_plan")
     machine.transition("approve_step")
+    machine.transition("apply_failed")
+
+    assert machine.get_state() == ForgeState.REPAIRING
