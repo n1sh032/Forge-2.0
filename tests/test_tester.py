@@ -1,3 +1,6 @@
 from src.tools.tester import run_tests
 
 
+def test_run_tests_passes(tmp_path):
+    test_file = tmp_path / "test_sample.py"
+    test_file.write_text("def test_ok():\n    assert True\n")
