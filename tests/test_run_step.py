@@ -58,3 +58,6 @@ def setup_manager(tmp_path, coder_provider):
     manager.approve_plan()
     manager.approve_step()
 
+    return manager, app_file
+
+
