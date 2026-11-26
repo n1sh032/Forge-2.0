@@ -16,3 +16,6 @@ class Manager:
 
     def get_state(self):
         return self.state_machine.get_state()
+
+    def get_task(self):
+        return self.current_task
