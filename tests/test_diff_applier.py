@@ -46,3 +46,6 @@ def test_apply_invalid_diff_does_not_modify_file(tmp_path):
     bad_diff = "this is not a real diff at all"
 
     result = apply_diff(bad_diff, project_root=str(tmp_path))
+
+    assert result.success is False
+    assert target_file.read_text() == "old line\n"
