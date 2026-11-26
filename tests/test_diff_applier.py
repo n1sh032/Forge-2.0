@@ -40,3 +40,6 @@ def test_apply_invalid_diff_does_not_modify_file(tmp_path):
     target_file = tmp_path / "app.py"
     target_file.write_text("old line\n")
 
+    subprocess.run(["git", "add", "."], cwd=tmp_path, capture_output=True)
+    subprocess.run(["git", "commit", "-m", "initial"], cwd=tmp_path, capture_output=True)
+
