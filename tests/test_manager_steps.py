@@ -34,3 +34,6 @@ def test_next_step_advances_index():
     manager.start_task("Build a calculator")
     manager.create_plan()
     manager.approve_plan()
+    manager.approve_step()
+    manager.coding_done()
+    manager.tests_passed()
