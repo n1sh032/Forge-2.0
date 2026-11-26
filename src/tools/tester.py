@@ -25,3 +25,6 @@ def run_tests(project_root="."):
         text=True
     )
 
+    passed = result.returncode == 0
+    output = result.stdout + result.stderr
+
