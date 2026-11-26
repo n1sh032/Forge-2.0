@@ -49,3 +49,6 @@ def init_git_repo(project_root):
 def test_commit_creates_git_commit(tmp_path):
     project_root = tmp_path
     test_file = project_root / "test_sample.py"
+    test_file.write_text("")
+
+    init_git_repo(project_root)
