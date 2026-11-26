@@ -10,3 +10,12 @@ def omniroute_is_running():
         return True
     except requests.exceptions.RequestException:
         return False
+
+
+@pytest.mark.skipif(
+    not omniroute_is_running(),
+    reason="OmniRoute is not running on localhost:20128"
+)
+def test_ask_returns_text():
+
+    provider = OmniRouteProvider()
