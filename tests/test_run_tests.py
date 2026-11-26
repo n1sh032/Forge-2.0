@@ -67,3 +67,6 @@ def test_run_tests_passes_moves_to_committing(tmp_path):
 
     manager, test_file = get_to_testing(tmp_path, diff)
 
+    assert manager.get_state() == ForgeState.TESTING
+
+    result = manager.run_tests()
