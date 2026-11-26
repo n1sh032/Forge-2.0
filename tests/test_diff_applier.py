@@ -28,3 +28,6 @@ def test_apply_valid_diff_modifies_file(tmp_path):
         "+new line\n"
     )
 
+    result = apply_diff(diff, project_root=str(tmp_path))
+
+    assert result.success is True
