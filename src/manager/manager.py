@@ -83,6 +83,9 @@ class Manager:
 
         if result.passed:
             self.repair_attempts = 0
+            self.state_machine.transition("tests_passed")
+            return result
+
     def retry_coding(self):
         self.state_machine.transition("retry_coding")
 
