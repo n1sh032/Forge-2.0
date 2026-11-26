@@ -3,6 +3,7 @@ import json
 
 from .base_agent import BaseAgent
 from src.providers.omniroute_provider import OmniRouteProvider
+from src.tools.project_paths import project_path
 
 
 class Coder(BaseAgent):
