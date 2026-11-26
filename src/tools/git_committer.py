@@ -32,7 +32,7 @@ def commit_changes(project_root, commit_message, approved_paths=()):
     if staged.returncode:
         return CommitResult(False, "Commit requires an empty Git index")
     add = subprocess.run(
-        ["git", "add", "-A"],
+        ["git", "--literal-pathspecs", "add", "--", *approved_paths],
         cwd=project_root,
         capture_output=True,
         text=True
