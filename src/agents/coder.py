@@ -61,7 +61,7 @@ class Coder(BaseAgent):
 
         return contents
 
-    def _generate_diff(self, step, file_contents):
+    def _generate_diff(self, step, file_contents, feedback=None):
         files_section = ""
         for path, content in file_contents.items():
             if content is None:
