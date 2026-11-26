@@ -74,6 +74,12 @@ class Manager:
 
         return result
 
+    def run_tests(self):
+
+        if self.state_machine.get_state() != ForgeState.TESTING:
+            raise ValueError("Manager is not currently in the TESTING state")
+
+        result = run_tests(project_root=self.project_root)
     def retry_coding(self):
         self.state_machine.transition("retry_coding")
 
