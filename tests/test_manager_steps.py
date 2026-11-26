@@ -22,3 +22,6 @@ def test_get_current_step_returns_first_step():
 def test_get_current_step_before_plan_raises():
 
     manager = Manager()
+
+    with pytest.raises(ValueError):
+        manager.get_current_step()
