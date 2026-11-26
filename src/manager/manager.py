@@ -91,6 +91,7 @@ class Manager:
 
         if result.passed:
             self.repair_attempts = 0
+            self.repair_feedback = None
             self.state_machine.transition("tests_passed")
             return result
 
