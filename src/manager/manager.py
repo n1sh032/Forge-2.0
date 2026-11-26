@@ -28,3 +28,6 @@ class Manager:
 
     def approve_step(self):
         self.state_machine.transition("approve_step")
+
+    def coding_done(self):
+        self.state_machine.transition("coding_done")
