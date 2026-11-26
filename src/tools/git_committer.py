@@ -16,3 +16,9 @@ def commit_changes(project_root, commit_message):
     message itself is expected to already be generated elsewhere.
     """
 
+    add = subprocess.run(
+        ["git", "add", "-A"],
+        cwd=project_root,
+        capture_output=True,
+        text=True
+    )
