@@ -67,3 +67,6 @@ def test_run_step_success(tmp_path):
 
     result = manager.run_step()
 
+    assert result.success is True
+    assert app_file.read_text() == "new line\n"
+
