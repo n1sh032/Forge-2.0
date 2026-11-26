@@ -19,14 +19,18 @@ def run_tests(project_root=".", timeout=120):
     inspected or shown to the user.
     """
 
-    result = subprocess.run(
-        [sys.executable, "-m", "pytest"],
-        cwd=project_root,
-        capture_output=True,
-        text=True
-    )
-
-    passed = result.returncode == 0
-    output = result.stdout + result.stderr
-
-    return TestResult(passed=passed, output=output)
+    with TemporaryFile() as log:
+        try:
+            result = subprocess.run(
+                [sys.executable, "-m", "pytest"],
+                cwd=project_root,
+                stdout=log,
+                stderr=subprocess.STDOUT,
+                timeout=timeout,
+            )
+            passed = result.returncode == 0
+            prefix = ""
+        except subprocess.TimeoutExpired:
+            passed = False
+            prefix = f"pytest timed out after {timeout} seconds\n"
+        start = max(0, log.seek(0, 2) - 64 * 1024)
