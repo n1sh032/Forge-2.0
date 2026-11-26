@@ -40,3 +40,6 @@ class NewFileProvider:
 def test_coder_handles_new_file(tmp_path):
 
     coder = Coder(provider=NewFileProvider(), project_root=str(tmp_path))
+
+    diff = coder.run("create a login file")
+
