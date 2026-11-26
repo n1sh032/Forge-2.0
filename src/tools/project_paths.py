@@ -16,3 +16,4 @@ def project_path(root, value):
         raise ValueError(f"Path escapes project: {value!r}")
     if target.is_symlink() or any(parent.is_symlink() for parent in target.parents if parent != root):
         raise ValueError(f"Symbolic links are not supported: {value!r}")
+    return target
