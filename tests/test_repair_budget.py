@@ -16,3 +16,6 @@ def test_patches_that_apply_cannot_reset_failed_test_budget(monkeypatch):
     monkeypatch.setattr(module, "apply_diff", lambda *args, **kwargs: DiffResult(True, "applied"))
     monkeypatch.setattr(module, "run_tests", lambda **kwargs: CheckResult(False, "failed"))
     manager.start_task("task")
+    manager.create_plan()
+    manager.approve_plan()
+    manager.approve_step()
