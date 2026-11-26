@@ -7,3 +7,5 @@ def test_architect():
 
     plan = architect.run("Build a calculator")
 
+    assert plan["task"] == "Build a calculator"
+    assert len(plan["steps"]) > 0
