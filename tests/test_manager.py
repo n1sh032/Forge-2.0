@@ -22,3 +22,6 @@ def test_manager_approval_flow():
     assert manager.get_state() == ForgeState.WAITING_FOR_PLAN_APPROVAL
 
     manager.approve_plan()
+
+    assert manager.get_state() == ForgeState.WAITING_FOR_STEP_APPROVAL
+
