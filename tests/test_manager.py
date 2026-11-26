@@ -56,3 +56,5 @@ def test_manager_creates_plan():
     plan = manager.create_plan()
 
     assert plan["task"] == "Build a calculator"
+    assert len(plan["steps"]) > 0
+    assert manager.get_state() == ForgeState.WAITING_FOR_PLAN_APPROVAL
