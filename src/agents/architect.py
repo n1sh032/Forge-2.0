@@ -11,6 +11,9 @@ class Architect(BaseAgent):
         self._provider = provider
 
     @property
+    def provider(self):
+        if self._provider is None:
+            self._provider = OmniRouteProvider()
 
     def run(self, task):
         prompt = (
