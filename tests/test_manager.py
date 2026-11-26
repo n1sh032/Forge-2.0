@@ -53,3 +53,6 @@ def test_manager_creates_plan():
 
     manager.start_task("Build a calculator")
 
+    plan = manager.create_plan()
+
+    assert plan["task"] == "Build a calculator"
