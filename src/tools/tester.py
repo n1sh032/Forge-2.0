@@ -37,3 +37,4 @@ def run_tests(project_root=".", timeout=120):
         log.seek(start)
         if start:
             prefix += "[Showing the last 64 KiB of pytest output]\n"
+        return TestResult(passed, prefix + log.read().decode("utf-8", errors="replace"))
