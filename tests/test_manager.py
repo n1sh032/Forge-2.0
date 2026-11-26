@@ -3,6 +3,9 @@ from src.manager.state_machine import ForgeState
 from src.agents.architect import Architect
 
 
+class FakeProvider:
+    def ask(self, prompt):
+        return '["Understand the requirements", "Design the solution", "Implement the solution", "Test the solution"]'
 
 
 def test_manager_starts_task():
