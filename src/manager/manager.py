@@ -37,6 +37,12 @@ class Manager:
 
         return self.current_plan
 
+    def get_current_step(self):
+
+        if self.current_plan is None:
+            raise ValueError("No plan exists yet")
+
+        steps = self.current_plan["steps"]
     def get_state(self):
         return self.state_machine.get_state()
 
