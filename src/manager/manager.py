@@ -65,6 +65,7 @@ class Manager:
             diff = self.coder.run(step)
         if review_patch is not None and not review_patch(diff):
             self.state_machine.transition("fail")
+            return None
         result = apply_diff(diff, project_root=self.project_root)
 
         if result.success:
