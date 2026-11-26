@@ -16,3 +16,6 @@ def approve(prompt):
     return input(f"{prompt} [y/N] ").strip().lower() == "y"
 
 
+def review_patch(diff):
+    print(diff)
+    return approve("Apply this patch and run the project's pytest suite?")
