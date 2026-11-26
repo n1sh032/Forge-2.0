@@ -41,7 +41,7 @@ def test_manager_coding_and_testing():
     manager = Manager(architect=Architect(provider=FakeProvider()))
 
     manager.start_task("Build a calculator")
-    manager.plan_ready()
+    manager.create_plan()
     manager.approve_plan()
     manager.approve_step()
     manager.coding_done()
