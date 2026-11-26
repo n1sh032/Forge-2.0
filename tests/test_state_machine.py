@@ -76,3 +76,6 @@ def test_repair_loop():
     assert machine.get_state() == ForgeState.TESTING
 
 
+def test_invalid_transition():
+
+    machine = StateMachine()
