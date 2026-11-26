@@ -1,5 +1,6 @@
 import subprocess
 import sys
+from tempfile import TemporaryFile
 
 
 class TestResult:
