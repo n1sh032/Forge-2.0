@@ -13,3 +13,6 @@ def test_apply_valid_diff_modifies_file(tmp_path):
     init_git_repo(tmp_path)
 
     target_file = tmp_path / "app.py"
+    target_file.write_text("old line\n")
+
+    subprocess.run(["git", "add", "."], cwd=tmp_path, capture_output=True)
