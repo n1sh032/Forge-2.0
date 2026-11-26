@@ -49,3 +49,6 @@ def test_testing_success():
     machine.transition("approve_plan")
     machine.transition("approve_step")
     machine.transition("coding_done")
+
+    assert machine.get_state() == ForgeState.TESTING
+
